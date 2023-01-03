@@ -41,7 +41,7 @@ function MainFeed() {
                 <div data-tooltip="View Profile">{profilepic}</div>
                 <h2>{user.username}</h2>
                 <span id="points">Points: 0</span><br />
-                <button className='btn'>+New Post</button>
+                <button className='btn' onClick={() => history.push('/newpost')}>+New Post</button>
             </section>
             <section id="main-feed">
                 <p>Posts go here.</p>
