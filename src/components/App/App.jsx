@@ -23,6 +23,7 @@ import EditUserPage from '../EditUserPage/EditUserPage';
 
 import './App.css';
 import MainFeed from '../MainFeed/MainFeed';
+import NewPostPage from '../NewPostPage/NewPostPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -75,6 +76,14 @@ function App() {
             path="/feed"
           >
             <MainFeed />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // Create a post
+            exact
+            path="/newpost"
+          >
+            <NewPostPage />
           </ProtectedRoute>
 
           <ProtectedRoute
