@@ -10,7 +10,8 @@
     background-image: url('../../img/paper.jpeg');
     background-size: cover;
     background-repeat: no-repeat;
-    
+    background-attachment: fixed;
+    overflow: hidden;
 }
 
 .choose-post-type {
@@ -32,26 +33,4 @@
 .btn {
     width: fit-content;
     padding: 20px;
-}
-
-[data-backbutton]:before {
-    position: fixed;
-    left: 88px;
-    top: 41px;
-    content: attr(data-backbutton);
-    color: black;
-    padding: 5px;
-    text-align: center;
-    opacity: 0;
-    width: 0px;
-    height: 18px;
-    transition: width 1s;
-    overflow: hidden;
-}
-
-[data-backbutton]:hover:before {
-    background-color: black;
-    color: white;
-    width: 150px;
-    opacity: 1;
 }

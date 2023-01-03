@@ -36,15 +36,15 @@
 [data-backbutton]:before {
     position: fixed;
     left: 88px;
-    top: 41px;
+    top: 42px;
     content: attr(data-backbutton);
-    color: black;
+    color: white;
     padding: 5px;
     text-align: center;
     opacity: 0;
     width: 0px;
     height: 18px;
-    transition: width 1s;
+    transition: width 1s, opacity 1s;
     overflow: hidden;
 }
 
