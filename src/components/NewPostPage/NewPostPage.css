@@ -1,0 +1,34 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 100px;
+}
+
+.choose-post-type {
+    padding: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    background: rgba(255, 255, 255, 0);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(3.5px);
+    -webkit-backdrop-filter: blur(3.5px);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.btn {
+    width: fit-content;
+    padding: 20px;
+}
+
+body {
+    background-image: url('../../img/paper.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
