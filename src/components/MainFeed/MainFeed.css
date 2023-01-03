@@ -5,6 +5,12 @@
     padding: 0;
 }
 
+#main-feed {
+    margin-left: 50%;
+    display: flex;
+    flex-direction: row;
+}
+
 #sidebar {
     background-color: lightgrey;
     margin: 0;
