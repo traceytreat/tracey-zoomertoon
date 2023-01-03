@@ -2,6 +2,8 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import tinycolor2 from "tinycolor2";
+import HelpIcon from '@mui/icons-material/Help';
+import { Grid, Tooltip } from '@mui/material';
 import './MainFeed.css';
 
 // This is the main feed of the app.
@@ -45,9 +47,18 @@ function MainFeed() {
     return (
         <div className='feed-container'>
             <section id="sidebar">
-                <div data-tooltip="View Profile">{profilepic}</div>
+                <div id="profilepic" data-tooltip="View Profile">{profilepic}</div>
                 <h2>{user.username}</h2>
-                <span id="points">Points: 0</span><br />
+                <Grid container spacing={0.5} direction="row" alignItems="center" justifyContent="center">
+                <Grid item>
+                    <span id="points">Points: 0</span>
+                </Grid>
+                <Grid item>
+                    <Tooltip placement="right" title="Your Points = How many posts you have made + How many loves you've gotten">
+                        <HelpIcon fontSize="small" color='black'/>
+                    </Tooltip>
+                </Grid>
+                </Grid>
                 <button className='btn' onClick={() => history.push('/newpost')}>+New Post</button>
             </section>
             <section id="main-feed">

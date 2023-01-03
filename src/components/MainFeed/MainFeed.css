@@ -24,15 +24,15 @@
     justify-content: flex-start;
 }
 
-#sidebar svg,
-#sidebar img {
+#profilepic svg,
+#profilepic img {
     border: 2px solid black;
     border-radius: 50%;
 
 }
 
-#sidebar svg:hover,
-#sidebar img:hover {
+#profilepic svg:hover,
+#profilepic img:hover {
     cursor: pointer;
 }
 
