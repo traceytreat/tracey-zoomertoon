@@ -8,7 +8,49 @@
     flex-direction: column;
 }
 
-.user-info svg, .user-info img {
+.user-info {
+    margin-top: 100px;
+}
+
+.user-info svg,
+.user-info img {
     border: 2px solid black;
     border-radius: 50%;
+}
+
+.back-button svg {
+    position: fixed;
+    opacity: 0.8;
+    background-color: black;
+    border-radius: 50%;
+    transition: all 0.2s;
+}
+
+.back-button svg:hover {
+    opacity: 1;
+}
+
+.back-button {
+    margin: 20px;
+}
+[data-backbutton]:before {
+    position: fixed;
+    left: 88px;
+    top: 41px;
+    content: attr(data-backbutton);
+    color: black;
+    padding: 5px;
+    text-align: center;
+    opacity: 0;
+    width: 0px;
+    height: 18px;
+    transition: width 1s;
+    overflow: hidden;
+}
+
+[data-backbutton]:hover:before {
+    background-color: black;
+    color: white;
+    width: 150px;
+    opacity: 1;
 }

@@ -3,9 +3,13 @@ import LogOutButton from '../LogOutButton/LogOutButton';
 import { useSelector } from 'react-redux';
 import tinycolor2 from "tinycolor2";
 import './UserPage.css';
+import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
+import { useHistory } from 'react-router-dom';
 
 function UserPage() {
   const user = useSelector((store) => store.user);
+  const history = useHistory();
+
   const email = 'mailto:' + user.email
 
   const defaultcolor = '#' + user.defaultpic.toString(16);
@@ -33,6 +37,11 @@ function UserPage() {
     </img>;
   return (
     <div className="content">
+      <div className="back-button">
+        <div data-backbutton="Back to Main Feed">
+        <ArrowCircleLeftIcon style={{ fontSize: "72px", color: "white", cursor: "pointer" }} onClick={() => history.push('/feed')} />
+        </div>
+      </div>
       <div className="container">
         <section className="user-info">
           {profilepic}
