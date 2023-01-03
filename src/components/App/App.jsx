@@ -22,6 +22,7 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import EditUserPage from '../EditUserPage/EditUserPage';
 
 import './App.css';
+import MainFeed from '../MainFeed/MainFeed';
 
 function App() {
   const dispatch = useDispatch();
@@ -35,7 +36,6 @@ function App() {
   return (
     <Router>
       <div>
-        <Nav />
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
           <Redirect exact from="/" to="/home" />
@@ -62,11 +62,19 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute
-            // logged in shows UserPage else shows LoginPage
+            // This is the edit profile page
             exact
             path="/edituser"
           >
             <EditUserPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // Main feed for posts
+            exact
+            path="/feed"
+          >
+            <MainFeed />
           </ProtectedRoute>
 
           <ProtectedRoute

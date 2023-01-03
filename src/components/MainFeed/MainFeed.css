@@ -1,0 +1,19 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    padding: 0;
+}
+
+#sidebar {
+    background-color: grey;
+    margin: 0;
+    padding: 20px;
+    position: fixed;
+}
+
+#sidebar svg, #sidebar img {
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 100px;
+}
