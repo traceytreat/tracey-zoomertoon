@@ -31,10 +31,6 @@
     cursor: pointer;
 }
 
-[data-tooltip] {
-    transition: all 2s;
-}
-
 [data-tooltip]:before {
     position: absolute;
     content: attr(data-tooltip);
