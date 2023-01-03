@@ -8,3 +8,7 @@
     flex-direction: column;
 }
 
+.user-info svg, .user-info img {
+    border: 2px solid black;
+    border-radius: 50%;
+}

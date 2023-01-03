@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import tinycolor2 from "tinycolor2";
 import './MainFeed.css';
 
 // This is the main feed of the app.
@@ -12,12 +13,15 @@ function MainFeed() {
 
     // Code for default profile pic. Not used if user has their own profile pic
     const defaultcolor = '#' + user.defaultpic.toString(16);
+    const bgcolor = tinycolor2(defaultcolor).complement().toHexString();
+
     const profilepic =
         user.profilepic == './images/profilepics/default.svg' ? <svg
             xmlns="http://www.w3.org/2000/svg"
             width="150"
             height="150"
             onClick={() => history.push('/user')}
+            style={{backgroundColor: bgcolor}}
             version="1.1"
             viewBox="0 0 110 110"
         >
@@ -40,6 +44,7 @@ function MainFeed() {
             <section id="sidebar">
                 <div data-tooltip="View Profile">{profilepic}</div>
                 <h2>{user.username}</h2>
+                {bgcolor}
                 <span id="points">Points: 0</span><br />
                 <button className='btn' onClick={() => history.push('/newpost')}>+New Post</button>
             </section>

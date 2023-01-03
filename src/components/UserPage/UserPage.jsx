@@ -1,19 +1,22 @@
 import React from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import { useSelector } from 'react-redux';
+import tinycolor2 from "tinycolor2";
 import './UserPage.css';
 
 function UserPage() {
-  // this component doesn't do much to start, just renders some user reducer info to the DOM
   const user = useSelector((store) => store.user);
   const email = 'mailto:' + user.email
-  //const profilepic = user.profilepic;
+
   const defaultcolor = '#' + user.defaultpic.toString(16);
+  const bgcolor = tinycolor2(defaultcolor).complement().toHexString();
+
   const profilepic =
     user.profilepic == './images/profilepics/default.svg' ? <svg
       xmlns="http://www.w3.org/2000/svg"
       width="150"
       height="150"
+      style={{backgroundColor: bgcolor}}
       version="1.1"
       viewBox="0 0 110 110"
     >
