@@ -1,13 +1,16 @@
-.container {
+.newpost-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 100px;
+    background-image: url('../../img/paper.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
 }
 
 .choose-post-type {
-    padding: 100px;
+    padding: 75px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -25,10 +28,4 @@
 .btn {
     width: fit-content;
     padding: 20px;
-}
-
-body {
-    background-image: url('../../img/paper.jpeg');
-    background-size: cover;
-    background-repeat: no-repeat;
 }

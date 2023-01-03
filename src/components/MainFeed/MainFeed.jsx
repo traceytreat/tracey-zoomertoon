@@ -36,7 +36,7 @@ function MainFeed() {
         </img>;
 
     return (
-        <div className='container'>
+        <div className='feed-container'>
             <section id="sidebar">
                 <div data-tooltip="View Profile">{profilepic}</div>
                 <h2>{user.username}</h2>

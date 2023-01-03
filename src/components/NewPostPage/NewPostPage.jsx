@@ -5,7 +5,7 @@ import bg from '../../img/paper.jpeg';
 function NewPostPage() {
     //User chooses which type of post to create.
     return (
-        <div className="container">
+        <div className="newpost-container">
             <div className="choose-post-type">
                 <h2>Create New Post</h2>
                 <button className="btn">
