@@ -1,6 +1,8 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import useReduxStore from '../../hooks/useReduxStore';
+import LogOutButton from '../LogOutButton/LogOutButton';
 import tinycolor2 from "tinycolor2";
 import HelpIcon from '@mui/icons-material/Help';
 import { Grid, Tooltip } from '@mui/material';
@@ -12,6 +14,8 @@ import './MainFeed.css';
 function MainFeed() {
     const user = useSelector((store) => store.user);
     const history = useHistory();
+    const store = useReduxStore();
+    const dispatch = useDispatch();
 
     // Code for default profile pic. Not used if user has their own profile pic
     const defaultcolor = '#' + user.defaultpic.toString(16);
@@ -44,25 +48,38 @@ function MainFeed() {
             src={user.profilepic}>
         </img>;
 
+    useEffect(() => {
+
+        dispatch({ type: 'FETCH_POSTS' });
+        console.log('store is', store.post);
+    }, []);
+
     return (
         <div className='feed-container'>
             <section id="sidebar">
                 <div id="profilepic" data-tooltip="View Profile">{profilepic}</div>
                 <h2>{user.username}</h2>
                 <Grid container spacing={0.5} direction="row" alignItems="center" justifyContent="center">
-                <Grid item>
-                    <span id="points">Points: 0</span>
-                </Grid>
-                <Grid item>
-                    <Tooltip placement="right" title="Your Points = How many posts you have made + How many loves you've gotten">
-                        <HelpIcon fontSize="small" color='black'/>
-                    </Tooltip>
-                </Grid>
+                    <Grid item>
+                        <span id="points">Points: 0</span>
+                    </Grid>
+                    <Grid item>
+                        <Tooltip placement="right" title="Your Points = How many posts you have made + How many loves you've gotten" arrow>
+                            <HelpIcon fontSize="small" color='black' />
+                        </Tooltip>
+                    </Grid>
                 </Grid>
                 <button className='btn' onClick={() => history.push('/newpost')}>+New Post</button>
+                <LogOutButton className="btn" />
             </section>
             <section id="main-feed">
-                <p>Posts go here.</p>
+            {store.post.map((item, index) => {
+					return (
+						<div key={index}>
+                            {item.path ? <img width='200' src={item.path} /> : <p>{item.text}</p>}
+                        </div>
+					);
+				})}
             </section>
         </div>
     );

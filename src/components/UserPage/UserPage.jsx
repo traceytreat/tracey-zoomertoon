@@ -1,10 +1,10 @@
 import React from 'react';
-import LogOutButton from '../LogOutButton/LogOutButton';
 import { useSelector } from 'react-redux';
 import tinycolor2 from "tinycolor2";
 import './UserPage.css';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import { useHistory } from 'react-router-dom';
+import { Tooltip } from '@mui/material';
 
 function UserPage() {
   const user = useSelector((store) => store.user);
@@ -49,11 +49,16 @@ function UserPage() {
       <div className="container">
         <section className="user-info">
           {profilepic}
+          {user.admin &&
+            <Tooltip placement='top' title="This user is an Administrator." arrow>
+              <div id="admin-badge">
+                ADMIN
+              </div>
+            </Tooltip>}
           <h3>Contact Info:</h3>
           {user.linkedin && <a href={user.linkedin}>LinkedIn</a>}
           {user.website && <a href={user.website}>Portfolio</a>}
           <a href={email}>Send email to {user.username}</a><br />
-          <LogOutButton className="btn" />
         </section>
       </div>
       <div className="container">

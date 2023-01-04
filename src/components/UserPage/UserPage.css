@@ -18,6 +18,21 @@
     border-radius: 50%;
 }
 
+#admin-badge {
+    background: rgb(249, 182, 41);
+    background: linear-gradient(148deg, rgba(249, 182, 41, 1) 0%, rgba(255, 255, 255, 1) 15%, rgba(249, 182, 41, 1) 50%, rgba(255, 255, 255, 1) 70%, rgba(249, 182, 41, 1) 100%);
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-left: 35px;
+    width: 60px;
+    text-align: center;
+    font-weight: bold;
+    border: 2px solid black;
+    border-radius: 20px;
+    user-select: none;
+}
+
+
 .back-button svg {
     position: fixed;
     opacity: 0.8;
@@ -33,6 +48,7 @@
 .back-button {
     margin: 20px;
 }
+
 [data-backbutton]:before {
     position: fixed;
     left: 88px;
