@@ -23,6 +23,23 @@ router.get('/', (req, res) => {
   })
 });
 
+// GET specific post from post id
+router.get('/:id', (req,res) => {
+  const queryText = 
+  `SELECT "users_posts"."posts_id", "users_posts"."user_id", "posts"."path", "posts"."text", "posts"."loves", "posts"."date", "user"."username", "user"."admin", "user"."profilepic", "user"."defaultpic" FROM "users_posts" 
+  JOIN "posts" ON "users_posts"."posts_id" = "posts"."id"
+  JOIN "user" ON "users_posts"."user_id" = "user"."id"
+  WHERE "users_posts"."posts_id" = $1;`;
+
+  pool.query(queryText, [req.params.id]).then((results) => {
+    // console.log('query GET results from DB:', results)
+    res.send(results.rows);
+  }).catch((err) => {
+    console.log('error getting specific from DB', err);
+    res.sendStatus(500);
+  })
+});
+
 /**
  * POST route template
  */
