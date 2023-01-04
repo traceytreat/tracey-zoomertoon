@@ -78,7 +78,7 @@ function MainFeed() {
 						<div key={index}>
                             <div className='post-header'>
                                 {item.date}<br/>
-                                {item.username} shared a {item.path ? 'text' : 'drawing'} post
+                                {item.username} shared a {item.path ? 'drawing' : 'text'} post
                             </div>
                             {item.path ? <img width='200' src={item.path} /> : <p>{item.text}</p>}
                         </div>
