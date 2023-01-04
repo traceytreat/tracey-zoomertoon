@@ -60,10 +60,38 @@ router.get('/replies/:id', (req, res) => {
 });
 
 /**
- * POST route template
+ * POST route for adding a post
  */
 router.post('/', (req, res) => {
-  // POST route code here
+  console.log('req.body is', req.body);
+  const postFormat = (req.body.path ? req.body.path : req.body.text);
+  const addPostQuery = req.body.path ? `
+  INSERT INTO "posts" ("path", "post_type")
+  VALUES ($1, $2)
+  RETURNING "id";` : `
+  INSERT INTO "posts" ("text", "post_type")
+  VALUES ($1, $2)
+  RETURNING "id";`
+  pool.query(addPostQuery, [postFormat, req.body.post_type])
+  .then(result => {
+    console.log('new post id:', result.rows[0].id);
+    const newPostId = result.rows[0].id;
+
+    const usersPostsQuery = `
+    INSERT INTO "users_posts" ("user_id", "posts_id", "action_type")
+    VALUES ($1, $2, $3);
+    `;
+    pool.query(usersPostsQuery, [req.body.user_id, newPostId, 'post']).then(result => {
+      res.sendStatus(201);
+    }).catch(err => {
+      console.log(err);
+      res.sendStatus(500);
+    })
+  }).catch(err => {
+    console.log(err);
+    res.sendStatus(500);
+  })
+
 });
 
 module.exports = router;

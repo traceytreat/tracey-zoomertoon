@@ -2,22 +2,34 @@ import React from "react";
 import './NewPostPage.css';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import Swal from 'sweetalert2'
+import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
 
 function NewPostPage() {
     const history = useHistory();
+    const user = useSelector((store) => store.user);
+    const dispatch = useDispatch();
 
     const newDrawing = () => {
         Swal.fire({
             html:
-            '<input type="file"/>'
+            `<input type="file"/>`
         })
     }
 
     const newText = () => {
         Swal.fire({
-            html:
-            '<textarea />'
+            input: 'textarea'
+        }).then((result) => {
+            dispatch({
+                type: 'ADD_POST',
+                payload:
+                {
+                    user_id: user.id,
+                    post_type: 'post',
+                    text: result.value
+                }
+            });
         })
     }
 

@@ -10,8 +10,22 @@ function* fetchPosts() {
     }
 }
 
+function* addPost(action) {
+    try {
+        yield axios.post('/api/post', action.payload);
+        console.log('Add post', action.payload);
+        yield put({
+            type: 'FETCH_POSTS'
+        })
+
+    } catch (error) {
+        console.log('Posts post request failed', error);
+    }
+}
+
 function* postSaga() {
     yield takeLatest('FETCH_POSTS', fetchPosts);
+    yield takeLatest('ADD_POST', addPost);
 
 }
 export default postSaga;
