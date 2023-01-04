@@ -4,6 +4,8 @@ import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import Swal from 'sweetalert2'
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function NewPostPage() {
     const history = useHistory();
@@ -21,15 +23,19 @@ function NewPostPage() {
         Swal.fire({
             input: 'textarea'
         }).then((result) => {
-            dispatch({
-                type: 'ADD_POST',
-                payload:
-                {
-                    user_id: user.id,
-                    post_type: 'post',
-                    text: result.value
-                }
-            });
+            if ( result.isDismissed == false && result.value != ''){
+                dispatch({
+                    type: 'ADD_POST',
+                    payload:
+                    {
+                        user_id: user.id,
+                        post_type: 'post',
+                        text: result.value
+                    }
+                });
+                toast("Successfully posted")
+                history.push('/feed');
+            }
         })
     }
 
