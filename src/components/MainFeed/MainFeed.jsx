@@ -80,7 +80,11 @@ function MainFeed() {
                                 {item.date}<br/>
                                 {item.username} shared a {item.path ? 'drawing' : 'text'} post
                             </div>
-                            {item.path ? <img width='200' src={item.path} /> : <p>{item.text}</p>}
+                            <Tooltip placement="top-start" title='Click to view' followCursor>
+                            <div className='post-preview'>
+                                {item.path ? <img width='250' src={item.path} /> : <h3>{item.text}</h3>}
+                            </div>
+                            </Tooltip>
                         </div>
 					);
 				})}
