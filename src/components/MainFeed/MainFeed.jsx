@@ -76,6 +76,10 @@ function MainFeed() {
             {store.post.map((item, index) => {
 					return (
 						<div key={index}>
+                            <div className='post-header'>
+                                {item.date}<br/>
+                                {item.username} shared a {item.path ? 'text' : 'drawing'} post
+                            </div>
                             {item.path ? <img width='200' src={item.path} /> : <p>{item.text}</p>}
                         </div>
 					);
