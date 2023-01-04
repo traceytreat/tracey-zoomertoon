@@ -10,7 +10,8 @@ router.get('/', (req, res) => {
   `SELECT "users_posts"."posts_id", "posts"."path", "posts"."text", "posts"."flagged", "users_posts"."user_id", "user"."username", "user"."admin", "posts"."date" FROM "users_posts" 
   JOIN "posts" ON "users_posts"."posts_id" = "posts"."id"
   JOIN "user" ON "users_posts"."user_id" = "user"."id"
-  WHERE "posts"."post_type" = 'post'
+  WHERE "posts"."post_type" = 'post' 
+  AND "users_posts"."action_type" = 'post'
   ORDER BY "posts"."id" DESC;`;
 
   pool.query(queryText).then((results) => {
