@@ -18,16 +18,17 @@ function MainFeed() {
     const store = useReduxStore();
     const dispatch = useDispatch();
 
-    // Code for default profile pic. Not used if user has their own profile pic
-    const defaultcolor = '#' + user.defaultpic.toString(16);
-    const complement = tinycolor2(defaultcolor).complement().toHexString();
-
+    // Code for masonry layout
     const breakpointColumnsObj = {
         default: 3,
         1100: 3,
         700: 2,
         500: 1
     };
+
+    // Code for default profile pic. Not used if user has their own profile pic
+    const defaultcolor = '#' + user.defaultpic.toString(16);
+    const complement = tinycolor2(defaultcolor).complement().toHexString();
 
     const profilepic =
         user.profilepic == './images/profilepics/default.svg' ? <svg
@@ -60,7 +61,7 @@ function MainFeed() {
     const [visible, setVisible] = useState(false);
     const toggleVisible = () => {
         const scrolled = document.documentElement.scrollTop;
-        setVisible(scrolled > 0 ? true : false);
+        setVisible(scrolled > 100 ? true : false);
         console.log('in toggleVisible')
     };
     const returnToTop = () => {

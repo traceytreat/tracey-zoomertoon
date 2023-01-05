@@ -1,5 +1,16 @@
 const express = require('express');
 const pool = require('../modules/pool');
+const multer = require('multer');
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './public/images/uploads/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname)
+  }
+})
+
+const upload = multer({ storage: storage })
 const router = express.Router();
 
 /**
@@ -113,5 +124,25 @@ router.post('/', (req, res) => {
     })
 
 });
+
+/**
+ * POST route for uploading a picture
+ */
+router.post('/upload', upload.single('drawing'), (req, res) => {
+  // req.file is the name of your file in the form above, here 'uploaded_file'
+  // req.body will hold the text fields, if there were any 
+  console.log(req.file);
+  if (req.file) {
+    console.log("Uploaded");
+    // Refresh the page
+    // res.redirect("back");
+    res.send(req.file);
+  } else {
+    console.log("Failed");
+    res.send("failed");
+  }
+
+});
+
 
 module.exports = router;

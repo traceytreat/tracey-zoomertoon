@@ -14,8 +14,12 @@ function NewPostPage() {
 
     const newDrawing = () => {
         Swal.fire({
+            showConfirmButton: false,
             html:
-            `<input type="file"/>`
+                `<form action="/api/post/upload" method="post" enctype="multipart/form-data">
+                    <input type="file" name="drawing" />
+                    <input type="submit" value="Upload" />  
+                </form>`
         })
     }
 
@@ -24,7 +28,7 @@ function NewPostPage() {
             input: 'textarea',
             required: true
         }).then((result) => {
-            if ( result.isDismissed == false && result.value != ''){
+            if (result.isDismissed == false && result.value != '') {
                 dispatch({
                     type: 'ADD_POST',
                     payload:
