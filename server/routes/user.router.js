@@ -52,6 +52,22 @@ router.post('/logout', (req, res) => {
 
 //Edit user info
 router.put('/', rejectUnauthenticated, (req, res) => {
+  console.log('in put request');
+  console.log('req.user is', req.user);
+  const email = req.body.email;
+  const linkedin = req.body.linkedin;
+  const website = req.body.website;
 
+  const queryText = 
+  `UPDATE "user"
+  SET "email" = $1, "linkedin" = $2, "website" = $3
+  WHERE "id" = $4`;
+  pool.query(queryText, [email, linkedin, website, req.user.id])
+  .then(result => {
+    res.sendStatus(200);
+  }).catch(err => {
+    console.log('Error with put request', err);
+    res.sendStatus(500);
+  })
 });
 module.exports = router;

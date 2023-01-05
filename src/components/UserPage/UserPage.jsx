@@ -59,7 +59,9 @@ useEffect(() => {
       </div>
       <div className="container">
         <section className="user-info">
-          <EditIcon id="edit-button"/>
+        <Tooltip placement="top-start" title='Edit Profile'>
+          <EditIcon onClick={() => history.push('/edituser')} id="edit-button"/>
+          </Tooltip>
           {profilepic}
           {user.admin &&
             <Tooltip placement='top' title="This user is an Administrator." arrow>
