@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import useReduxStore from '../../hooks/useReduxStore';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import tinycolor2 from "tinycolor2";
+import Masonry from 'react-masonry-css'
 import HelpIcon from '@mui/icons-material/Help';
 import { Grid, Tooltip, Card, CardContent } from '@mui/material';
 import './MainFeed.css';
@@ -20,6 +21,13 @@ function MainFeed() {
     // Code for default profile pic. Not used if user has their own profile pic
     const defaultcolor = '#' + user.defaultpic.toString(16);
     const complement = tinycolor2(defaultcolor).complement().toHexString();
+
+    const breakpointColumnsObj = {
+        default: 3,
+        1100: 3,
+        700: 2,
+        500: 1
+      };
 
     const profilepic =
         user.profilepic == './images/profilepics/default.svg' ? <svg
@@ -72,7 +80,10 @@ function MainFeed() {
                 <button className='btn' onClick={() => history.push('/newpost')}>+New Post</button>
                 <LogOutButton className="btn" />
             </section>
-            <section id="main-feed">
+            <Masonry 
+            breakpointCols={breakpointColumnsObj}
+            className="main-feed"
+            columnClassName="main-feed-column">
                 {store.post.map((item, index) => {
                     return (
                         <Card className="main-feed-post" sx={{ width: 275 }} key={index}>
@@ -90,7 +101,7 @@ function MainFeed() {
                         </Card>
                     );
                 })}
-            </section>
+            </Masonry>
         </div>
     );
 }

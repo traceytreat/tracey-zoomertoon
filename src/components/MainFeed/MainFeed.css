@@ -7,20 +7,24 @@
     height: 100vh;
 }
 
-#main-feed {
+.main-feed {
     max-width: 70%;
     margin-left: 25%;
     margin-top: 20px;
     display: flex;
+    /*
     flex-direction: row;
     flex-wrap: wrap;
-    overflow-x: hidden;
-    align-content: flex-start;
     gap: 0px;
+    */
+    overflow-x: hidden;
 }
-
+.main-feed-column {
+    background-clip: padding-box;
+}
 .main-feed-post {
     margin: 10px;
+    float: left;
 }
 .MuiCard-root {
     height: fit-content !important;
