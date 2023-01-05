@@ -84,7 +84,7 @@ useEffect(() => {
         </section>
         <section className='recent-posts'>
           <h3>Recent Activity</h3>
-          <p>{JSON.stringify(store.post)}</p>
+          <p>{store.post.length === 0 ? 'No posts yet :(' : JSON.stringify(store.post)}</p>
 
         </section>
       </div>

@@ -3,7 +3,10 @@
     flex-direction: row;
     margin: 0;
     padding: 0;
-    background-color: darkgray;
+    background-color: #808080;
+    background-image: linear-gradient(#5f5f5f 2px, transparent 2px), linear-gradient(90deg, #5f5f5f 2px, transparent 2px), linear-gradient(#5f5f5f 1px, transparent 1px), linear-gradient(90deg, #5f5f5f 1px, #808080 1px);
+    background-size: 50px 50px, 50px 50px, 10px 10px, 10px 10px;
+    background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
     height: 100vh;
 }
 
@@ -27,7 +30,7 @@
     color: white;
     position: fixed;
     bottom: 20px;
-    right:20px;
+    right: 20px;
     padding: 20px;
     text-align: center;
 
@@ -36,13 +39,16 @@
 .main-feed-column {
     background-clip: padding-box;
 }
+
 .main-feed-post {
     margin: 10px;
     float: left;
 }
+
 .MuiCard-root {
     height: fit-content !important;
 }
+
 #sidebar {
     background-color: lightgrey;
     margin: 0;
