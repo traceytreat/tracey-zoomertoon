@@ -21,7 +21,8 @@ function NewPostPage() {
 
     const newText = () => {
         Swal.fire({
-            input: 'textarea'
+            input: 'textarea',
+            required: true
         }).then((result) => {
             if ( result.isDismissed == false && result.value != ''){
                 dispatch({
@@ -33,8 +34,10 @@ function NewPostPage() {
                         text: result.value
                     }
                 });
-                toast("Successfully posted")
+                toast.success("Successfully posted")
                 history.push('/feed');
+            } else if (result.isDismissed == false) {
+                toast.error("Error: Cannot submit an empty post.")
             }
         })
     }

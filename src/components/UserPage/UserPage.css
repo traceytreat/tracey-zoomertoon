@@ -70,3 +70,21 @@
     width: 150px;
     opacity: 1;
 }
+
+#edit-button {
+    position: absolute;
+    left: 170px;
+    top: 115px;
+    background-color: white;
+    padding: 5px;
+}
+
+#edit-button:hover {
+    position: absolute;
+    left: 170px;
+    top: 115px;
+    background-color: white;
+    color:rgb(112, 112, 112);
+    border: 2px solid rgb(112, 112, 112);
+    padding: 5px;
+}

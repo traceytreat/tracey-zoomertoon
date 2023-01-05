@@ -3,18 +3,28 @@
     flex-direction: row;
     margin: 0;
     padding: 0;
+    background-color: darkgray;
+    height: 100vh;
 }
 
 #main-feed {
-    max-width: 60%;
+    max-width: 70%;
     margin-left: 25%;
+    margin-top: 20px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between;
     overflow-x: hidden;
+    align-content: flex-start;
+    gap: 0px;
 }
 
+.main-feed-post {
+    margin: 10px;
+}
+.MuiCard-root {
+    height: fit-content !important;
+}
 #sidebar {
     background-color: lightgrey;
     margin: 0;

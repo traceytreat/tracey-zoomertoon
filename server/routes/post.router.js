@@ -40,6 +40,26 @@ router.get('/:id', (req, res) => {
   })
 });
 
+// GET all posts by a specific user
+router.get('/user/:id', (req, res) => {
+  const queryText =
+    `SELECT "users_posts"."posts_id", "users_posts"."user_id", "posts"."path", "posts"."text", "posts"."post_type", "user"."username", "posts"."date" FROM "users_posts" 
+  JOIN "posts" ON "users_posts"."posts_id" = "posts"."id"
+  JOIN "user" ON "users_posts"."user_id" = "user"."id"
+  WHERE "users_posts"."action_type" = 'post'
+  AND "users_posts"."user_id" = $1
+  ORDER BY "posts"."id" DESC;`;
+
+  pool.query(queryText, [req.params.id]).then((results) => {
+    // console.log('query GET results from DB:', results)
+    res.send(results.rows);
+  }).catch((err) => {
+    console.log('error getting users posts from DB', err);
+    res.sendStatus(500);
+  })
+
+})
+
 // GET all replies for a specific post
 router.get('/replies/:id', (req, res) => {
   const queryText =
@@ -73,24 +93,24 @@ router.post('/', (req, res) => {
   VALUES ($1, $2)
   RETURNING "id";`
   pool.query(addPostQuery, [postFormat, req.body.post_type])
-  .then(result => {
-    console.log('new post id:', result.rows[0].id);
-    const newPostId = result.rows[0].id;
+    .then(result => {
+      console.log('new post id:', result.rows[0].id);
+      const newPostId = result.rows[0].id;
 
-    const usersPostsQuery = `
+      const usersPostsQuery = `
     INSERT INTO "users_posts" ("user_id", "posts_id", "action_type")
     VALUES ($1, $2, $3);
     `;
-    pool.query(usersPostsQuery, [req.body.user_id, newPostId, 'post']).then(result => {
-      res.sendStatus(201);
+      pool.query(usersPostsQuery, [req.body.user_id, newPostId, 'post']).then(result => {
+        res.sendStatus(201);
+      }).catch(err => {
+        console.log(err);
+        res.sendStatus(500);
+      })
     }).catch(err => {
       console.log(err);
       res.sendStatus(500);
     })
-  }).catch(err => {
-    console.log(err);
-    res.sendStatus(500);
-  })
 
 });
 

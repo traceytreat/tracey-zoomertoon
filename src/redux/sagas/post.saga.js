@@ -10,6 +10,16 @@ function* fetchPosts() {
     }
 }
 
+function* fetchUserPosts(action) {
+    try{
+        console.log('in fetchUserPosts');
+        const response = yield axios.get('/api/post/user/' + action.payload.user_id)
+        yield put({type: 'SET_POSTS', payload: response.data})
+    } catch (error) {
+        console.log('User posts get request failed', error);
+    }
+}
+
 function* addPost(action) {
     try {
         yield axios.post('/api/post', action.payload);
@@ -25,6 +35,7 @@ function* addPost(action) {
 
 function* postSaga() {
     yield takeLatest('FETCH_POSTS', fetchPosts);
+    yield takeLatest('FETCH_USER_POSTS', fetchUserPosts);
     yield takeLatest('ADD_POST', addPost);
 
 }

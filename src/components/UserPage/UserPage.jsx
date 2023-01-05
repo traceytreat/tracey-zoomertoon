@@ -1,14 +1,18 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import useReduxStore from '../../hooks/useReduxStore';
 import tinycolor2 from "tinycolor2";
 import './UserPage.css';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
+import EditIcon from '@mui/icons-material/Edit';
 import { useHistory } from 'react-router-dom';
 import { Tooltip } from '@mui/material';
 
 function UserPage() {
   const user = useSelector((store) => store.user);
+  const store = useReduxStore();
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const email = 'mailto:' + user.email
 
@@ -39,6 +43,13 @@ function UserPage() {
       width="150px"
       src={user.profilepic}>
     </img>;
+
+useEffect(() => {
+
+  dispatch({ type: 'FETCH_USER_POSTS', payload: {user_id: user.id} });
+  console.log('store is', store.post);
+}, []);
+
   return (
     <div className="content">
       <div className="back-button">
@@ -48,6 +59,7 @@ function UserPage() {
       </div>
       <div className="container">
         <section className="user-info">
+          <EditIcon id="edit-button"/>
           {profilepic}
           {user.admin &&
             <Tooltip placement='top' title="This user is an Administrator." arrow>
@@ -69,7 +81,8 @@ function UserPage() {
         </section>
         <section className='recent-posts'>
           <h3>Recent Activity</h3>
-          <p>Latest posts go here.</p>
+          <p>{JSON.stringify(store.post)}</p>
+
         </section>
       </div>
     </div>

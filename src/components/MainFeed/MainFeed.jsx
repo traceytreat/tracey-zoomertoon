@@ -5,7 +5,7 @@ import useReduxStore from '../../hooks/useReduxStore';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import tinycolor2 from "tinycolor2";
 import HelpIcon from '@mui/icons-material/Help';
-import { Grid, Tooltip } from '@mui/material';
+import { Grid, Tooltip, Card, CardContent } from '@mui/material';
 import './MainFeed.css';
 
 // This is the main feed of the app.
@@ -73,21 +73,23 @@ function MainFeed() {
                 <LogOutButton className="btn" />
             </section>
             <section id="main-feed">
-            {store.post.map((item, index) => {
-					return (
-						<div key={index}>
-                            <div className='post-header'>
-                                {item.date}<br/>
-                                {item.username} shared a {item.path ? 'drawing' : 'text'} post
-                            </div>
-                            <Tooltip placement="top-start" title='Click to view' followCursor>
-                            <div className='post-preview'>
-                                {item.path ? <img width='250' src={item.path} /> : <h3>{item.text}</h3>}
-                            </div>
-                            </Tooltip>
-                        </div>
-					);
-				})}
+                {store.post.map((item, index) => {
+                    return (
+                        <Card className="main-feed-post" sx={{ width: 275 }} key={index}>
+                            <CardContent>
+                                <div className='post-header'>
+                                    {item.date}<br />
+                                    {item.username} shared a {item.path ? 'drawing' : 'text'} post
+                                </div>
+                                <Tooltip placement="top-start" title='Click to view' followCursor>
+                                    <div className='post-preview'>
+                                        {item.path ? <img width='250' src={item.path} /> : <h3>{item.text}</h3>}
+                                    </div>
+                                </Tooltip>
+                            </CardContent>
+                        </Card>
+                    );
+                })}
             </section>
         </div>
     );
