@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import useReduxStore from '../../hooks/useReduxStore';
@@ -27,7 +27,7 @@ function MainFeed() {
         1100: 3,
         700: 2,
         500: 1
-      };
+    };
 
     const profilepic =
         user.profilepic == './images/profilepics/default.svg' ? <svg
@@ -56,6 +56,22 @@ function MainFeed() {
             src={user.profilepic}>
         </img>;
 
+    // Code for return to top button.
+    const [visible, setVisible] = useState(false);
+    const toggleVisible = () => {
+        const scrolled = document.documentElement.scrollTop;
+        setVisible(scrolled > 0 ? true : false);
+        console.log('in toggleVisible')
+    };
+    const returnToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    };
+    window.addEventListener('scroll', toggleVisible);
+
+
     useEffect(() => {
 
         dispatch({ type: 'FETCH_POSTS' });
@@ -80,10 +96,10 @@ function MainFeed() {
                 <button className='btn' onClick={() => history.push('/newpost')}>+New Post</button>
                 <LogOutButton className="btn" />
             </section>
-            <Masonry 
-            breakpointCols={breakpointColumnsObj}
-            className="main-feed"
-            columnClassName="main-feed-column">
+            <Masonry
+                breakpointCols={breakpointColumnsObj}
+                className="main-feed"
+                columnClassName="main-feed-column">
                 {store.post.map((item, index) => {
                     return (
                         <Card className="main-feed-post" sx={{ width: 275 }} key={index}>
@@ -102,6 +118,9 @@ function MainFeed() {
                     );
                 })}
             </Masonry>
+            <div className='return-to-top' onClick={returnToTop} style={{ display: visible ? 'block' : 'none' }}>
+                Return to Top
+            </div>
         </div>
     );
 }

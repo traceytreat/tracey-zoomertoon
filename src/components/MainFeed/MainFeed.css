@@ -19,6 +19,20 @@
     */
     overflow-x: hidden;
 }
+
+.return-to-top {
+    width: 100px;
+    height: 20px;
+    background-color: black;
+    color: white;
+    position: fixed;
+    bottom: 20px;
+    right:20px;
+    padding: 20px;
+    text-align: center;
+
+}
+
 .main-feed-column {
     background-clip: padding-box;
 }
