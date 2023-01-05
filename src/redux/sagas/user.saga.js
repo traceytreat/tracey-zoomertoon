@@ -26,8 +26,8 @@ function* fetchUser() {
 
 function* editUser(action) {
   try {
-    yield axios.put('/api/user', action.payload);
-    yield put({ type: 'SET_USER', payload: response.data });
+    const response = yield axios.put('/api/user', action.payload);
+    yield put({ type: 'FETCH_USER'});
 
   } catch (error) {
     console.log('User put request failed', error);

@@ -48,6 +48,7 @@ useEffect(() => {
 
   dispatch({ type: 'FETCH_USER_POSTS', payload: {user_id: user.id} });
   console.log('store is', store.post);
+  console.log('im here');
 }, []);
 
   return (
@@ -70,8 +71,8 @@ useEffect(() => {
               </div>
             </Tooltip>}
           <h3>Contact Info:</h3>
-          {user.linkedin && <a href={user.linkedin}>LinkedIn</a>}
-          {user.website && <a href={user.website}>Portfolio</a>}
+          {user.linkedin && <a href={user.linkedin}>LinkedIn</a>}<br />
+          {user.website && <a href={user.website}>Portfolio</a>}<br />
           <a href={email}>Send email to {user.username}</a><br />
         </section>
       </div>

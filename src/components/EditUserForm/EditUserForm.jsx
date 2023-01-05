@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 import tinycolor2 from "tinycolor2";
 
 import './EditUserForm.css';
@@ -52,6 +53,7 @@ function EditUserForm() {
                 website: website == '' ? null : website,
             },
         });
+        toast.success("Changes applied")
         history.push('/user');
     };
 
