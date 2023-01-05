@@ -94,6 +94,7 @@ function MainFeed() {
                         </Tooltip>
                     </Grid>
                 </Grid>
+                {user.admin && <button className='btn' onClick={() => history.push('/admin')}>Admin Dashboard</button>}
                 <button className='btn' onClick={() => history.push('/newpost')}>+New Post</button>
                 <LogOutButton className="btn" />
             </section>

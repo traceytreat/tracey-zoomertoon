@@ -24,6 +24,7 @@ import EditUserPage from '../EditUserPage/EditUserPage';
 import './App.css';
 import MainFeed from '../MainFeed/MainFeed';
 import NewPostPage from '../NewPostPage/NewPostPage';
+import AdminPage from '../AdminPage/AdminPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -84,6 +85,19 @@ function App() {
             path="/newpost"
           >
             <NewPostPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // Admins only page
+            exact
+            path="/admin"
+          >
+            {user.admin ?
+              <AdminPage />
+              :
+              // Otherwise, show the admin page
+              <Redirect to="/feed" />
+            }
           </ProtectedRoute>
 
           <ProtectedRoute

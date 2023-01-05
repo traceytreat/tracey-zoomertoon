@@ -34,6 +34,23 @@ router.get('/', (req, res) => {
   })
 });
 
+router.get('/admin', (req, res) => {
+  const queryText =
+    `SELECT "users_posts"."posts_id", "users_posts"."user_id", "users_posts"."reply_to", "posts"."path", "posts"."text", "posts"."post_type", "user"."username", "posts"."date"  FROM "users_posts"
+    JOIN "posts" ON "users_posts"."posts_id" = "posts"."id"
+    JOIN "user" ON "users_posts"."user_id" = "user"."id"
+    WHERE "posts"."flagged" = true
+    ORDER BY "posts"."id" DESC;`;
+
+  pool.query(queryText).then((results) => {
+    // console.log('query GET results from DB:', results)
+    res.send(results.rows);
+  }).catch((err) => {
+    console.log('error getting flagged posts from DB', err);
+    res.sendStatus(500);
+  })
+});
+
 // GET specific post from post id
 router.get('/:id', (req, res) => {
   const queryText =
@@ -136,7 +153,7 @@ router.post('/upload', upload.single('drawing'), (req, res) => {
     console.log("Uploaded");
     // Refresh the page
     // res.redirect("back");
-    res.send(req.file);
+    res.sendStatus(204).end();
   } else {
     console.log("Failed");
     res.send("failed");

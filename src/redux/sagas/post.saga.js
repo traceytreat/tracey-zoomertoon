@@ -20,6 +20,15 @@ function* fetchUserPosts(action) {
     }
 }
 
+function* fetchAdminPosts() {
+    try{
+        const response = yield axios.get('/api/post/admin')
+        yield put({ type: 'SET_POSTS', payload: response.data });
+    } catch (error) {
+        console.log('Admin Posts get request failed', error);
+    }
+}
+
 function* addPost(action) {
     try {
         yield axios.post('/api/post', action.payload);
@@ -36,6 +45,7 @@ function* addPost(action) {
 function* postSaga() {
     yield takeLatest('FETCH_POSTS', fetchPosts);
     yield takeLatest('FETCH_USER_POSTS', fetchUserPosts);
+    yield takeLatest('FETCH_ADMIN_POSTS', fetchAdminPosts);
     yield takeLatest('ADD_POST', addPost);
 
 }
