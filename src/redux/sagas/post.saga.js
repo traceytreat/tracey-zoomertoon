@@ -42,11 +42,24 @@ function* addPost(action) {
     }
 }
 
+function* deletePost_Admin(action) {
+    console.log('action payload is', action.payload)
+    try {
+        yield axios.delete('/api/post/' + action.payload.posts_id);
+        console.log('Delete post', action.payload.posts_id);
+        yield put({
+            type: 'FETCH_ADMIN_POSTS'
+        })
+    } catch (error) {
+        console.log('Posts admin delete request failed', error);
+    }
+}
 function* postSaga() {
     yield takeLatest('FETCH_POSTS', fetchPosts);
     yield takeLatest('FETCH_USER_POSTS', fetchUserPosts);
     yield takeLatest('FETCH_ADMIN_POSTS', fetchAdminPosts);
     yield takeLatest('ADD_POST', addPost);
+    yield takeLatest('DELETE_POST_ADMIN', deletePost_Admin);
 
 }
 export default postSaga;

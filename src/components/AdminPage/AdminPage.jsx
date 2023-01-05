@@ -8,6 +8,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import useReduxStore from '../../hooks/useReduxStore';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Swal from 'sweetalert2';
 import './AdminPage.css';
 import { useHistory } from 'react-router-dom';
 
@@ -21,6 +23,28 @@ function AdminPage() {
         dispatch({ type: 'FETCH_ADMIN_POSTS' });
         console.log('store is', store.post);
     }, []);
+
+    const handleDelete = (posts_id) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "This action cannot be reversed",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Delete'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch({type: 'DELETE_POST_ADMIN', payload: {posts_id: posts_id}});
+                console.log(posts_id);
+              Swal.fire(
+                'Deleted!',
+                'The post has been deleted.',
+                'success'
+              )
+            }
+          })
+    }
 
     return (
         <>
@@ -53,7 +77,7 @@ function AdminPage() {
                                     </TableCell>
                                     <TableCell>{row.path ? 'Drawing Post' : (row.reply_to ? 'Reply: ' + row.text : 'Writing Post: ' + row.text)}</TableCell>
                                     <TableCell>{row.username}</TableCell>
-                                    <TableCell>Action buttons go here.</TableCell>
+                                    <TableCell><button onClick={() => handleDelete(row.posts_id)}>Delete</button></TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
