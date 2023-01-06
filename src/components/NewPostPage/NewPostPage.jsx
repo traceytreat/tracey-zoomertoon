@@ -38,6 +38,7 @@ function NewPostPage() {
                         text: result.value
                     }
                 });
+                dispatch({type: 'FETCH_POINTS', payload: {user_id : user.id}})
                 toast.success("Successfully posted")
                 history.push('/feed');
             } else if (result.isDismissed == false) {
@@ -62,7 +63,7 @@ function NewPostPage() {
                     </button>
                     <h3>-or-</h3>
                     <button onClick={newText} className="btn">
-                        New Writing Prompt
+                        New Text Post
                     </button>
                 </div>
             </div>

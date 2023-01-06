@@ -45,6 +45,10 @@
     float: left;
 }
 
+.post-header {
+    margin-bottom: 10px;
+}
+
 .MuiCard-root {
     height: fit-content !important;
 }

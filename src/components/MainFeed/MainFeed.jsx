@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import useReduxStore from '../../hooks/useReduxStore';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import tinycolor2 from "tinycolor2";
+import { format, parseISO } from 'date-fns';
 import Masonry from 'react-masonry-css'
 import HelpIcon from '@mui/icons-material/Help';
 import { Grid, Tooltip, Card, CardContent } from '@mui/material';
@@ -74,7 +75,7 @@ function MainFeed() {
 
 
     useEffect(() => {
-
+        dispatch({ type: 'FETCH_POINTS', payload: {user_id: user.id} });
         dispatch({ type: 'FETCH_POSTS' });
         console.log('store is', store.post);
     }, []);
@@ -86,7 +87,7 @@ function MainFeed() {
                 <h2>{user.username}</h2>
                 <Grid container spacing={0.5} direction="row" alignItems="center" justifyContent="center">
                     <Grid item>
-                        <span id="points">Points: 0</span>
+                        <span id="points">Points: {store.points[0]?.count}</span>
                     </Grid>
                     <Grid item>
                         <Tooltip placement="right" title="Your Points = How many posts you have made + How many loves you've gotten" arrow>
@@ -107,8 +108,8 @@ function MainFeed() {
                         <Card className="main-feed-post" sx={{ width: 275 }} key={index}>
                             <CardContent>
                                 <div className='post-header'>
-                                    {item.date}<br />
-                                    {item.username} shared a {item.path ? 'drawing' : 'text'} post
+                                    On {format(parseISO(item.date), 'MM/dd/yyyy')} at {format(parseISO(item.date), 'hh:mm a')},<br />
+                                    {item.username} shared a {item.path ? 'drawing' : 'text'} post:
                                 </div>
                                 <Tooltip placement="top-start" title='Click to view' followCursor>
                                     <div onClick={() => history.push('/details/' + item.posts_id)}className='post-preview'>

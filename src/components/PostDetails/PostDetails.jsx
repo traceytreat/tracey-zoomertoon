@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import Swal from 'sweetalert2';
+import { format, parseISO } from 'date-fns';
 import './PostDetails.css';
 import { toast } from 'react-toastify';
 
@@ -67,7 +68,7 @@ function PostDetails() {
             <div className="post-details-content">
 
                 {/*<p>{JSON.stringify(post)}</p>*/}
-                <h3>{post[0]?.username} posted a {post[0]?.path ? 'drawing' : 'writing prompt'} on {post[0]?.date}</h3>
+                <h3>{post[0]?.username} posted a {post[0]?.path ? 'drawing' : 'text'} on {format(parseISO(post[0]?.date), 'MM/dd/yyyy')} at {format(parseISO(post[0]?.date), 'hh:mm a')}</h3>
                 {post[0]?.path ? <img width='350' src={post[0]?.path} /> : <p>{post[0]?.text}</p>}
                 <br/>
                 {user?.id != post[0]?.user_id && <button onClick={() =>  handleReportPost(post[0]?.posts_id)}>Report</button>}

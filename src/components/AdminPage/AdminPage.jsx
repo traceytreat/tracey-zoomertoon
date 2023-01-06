@@ -7,6 +7,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import useReduxStore from '../../hooks/useReduxStore';
+import { format, parseISO } from 'date-fns';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Swal from 'sweetalert2';
@@ -94,9 +95,9 @@ function AdminPage() {
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                 >
                                     <TableCell component="th" scope="row">
-                                        {row.date}
+                                    {format(parseISO(row.date), 'MM/dd/yyyy hh:mm a')}
                                     </TableCell>
-                                    <TableCell><Link to={row.reply_to ? `/details/${row.reply_to}` : `/details/${row.posts_id}`}>{row.path ? 'Drawing Post' : (row.reply_to ? 'Reply: ' + row.text : 'Writing Post: ' + row.text)}</Link></TableCell>
+                                    <TableCell><Link to={row.reply_to ? `/details/${row.reply_to}` : `/details/${row.posts_id}`}>{row.path ? 'Drawing Post' : (row.reply_to ? 'Reply: ' + row.text : 'Text Post: ' + row.text)}</Link></TableCell>
                                     <TableCell>{row.username}</TableCell>
                                     <TableCell><button onClick={() => handleRemoveFlag(row.posts_id)}>Remove Flag</button><button onClick={() => handleDelete(row.posts_id)}>Delete</button></TableCell>
                                 </TableRow>

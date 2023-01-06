@@ -33,9 +33,7 @@ function* addPost(action) {
     try {
         yield axios.post('/api/post', action.payload);
         console.log('Add post', action.payload);
-        yield put({
-            type: 'FETCH_POSTS'
-        })
+        yield put({type: 'FETCH_POSTS'})
 
     } catch (error) {
         console.log('Posts post request failed', error);
@@ -47,9 +45,7 @@ function* deletePost(action) {
     try {
         yield axios.delete('/api/post/' + action.payload.posts_id);
         console.log('Delete post', action.payload.posts_id);
-        yield put({
-            type: 'FETCH_POSTS'
-        })
+        yield put({type: 'FETCH_POSTS'})
     } catch (error) {
         console.log('Posts delete request failed', error);
     }
@@ -60,9 +56,7 @@ function* deletePost_Admin(action) {
     try {
         yield axios.delete('/api/post/' + action.payload.posts_id);
         console.log('Delete post', action.payload.posts_id);
-        yield put({
-            type: 'FETCH_ADMIN_POSTS'
-        })
+        yield put({type: 'FETCH_ADMIN_POSTS'})
     } catch (error) {
         console.log('Posts admin delete request failed', error);
     }
