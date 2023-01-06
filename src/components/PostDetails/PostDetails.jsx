@@ -78,7 +78,7 @@ function PostDetails() {
             <ul id='reply-list'>
                 {reply?.map((r) => (
                     <li key={r?.posts_id}>
-                        <b>{r?.username}: {r?.text}</b> 
+                        <b>{r?.username}: {r?.text ? r?.text : <img width='250' src={r?.path} /> }</b> 
                         {user?.id != r?.user_id && <button onClick={() =>  handleReportPost(r?.posts_id)}>Report</button>}
                         {user?.id == r?.user_id && <button onClick={() => handleDeletePost(r?.posts_id)}>Delete this post</button>}
                     </li>
