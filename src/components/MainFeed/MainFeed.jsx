@@ -111,7 +111,7 @@ function MainFeed() {
                                     {item.username} shared a {item.path ? 'drawing' : 'text'} post
                                 </div>
                                 <Tooltip placement="top-start" title='Click to view' followCursor>
-                                    <div className='post-preview'>
+                                    <div onClick={() => history.push('/details/' + item.posts_id)}className='post-preview'>
                                         {item.path ? <img width='250' src={item.path} /> : <h3>{item.text}</h3>}
                                     </div>
                                 </Tooltip>

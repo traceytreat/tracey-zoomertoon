@@ -1,0 +1,10 @@
+.post-details-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#reply-list {
+    align-items: flex-start;
+}

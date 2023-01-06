@@ -24,6 +24,28 @@ function AdminPage() {
         console.log('store is', store.post);
     }, []);
 
+    const handleRemoveFlag = (posts_id) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "This will remove the flag from this post.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Remove Flag'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch({type: 'REMOVE_FLAG', payload: {posts_id: posts_id, action: 'remove'}});
+                console.log(posts_id);
+              Swal.fire(
+                'Removed!',
+                'The flag has been removed.',
+                'success'
+              )
+            }
+          })
+    }
+
     const handleDelete = (posts_id) => {
         Swal.fire({
             title: 'Are you sure?',
@@ -77,7 +99,7 @@ function AdminPage() {
                                     </TableCell>
                                     <TableCell>{row.path ? 'Drawing Post' : (row.reply_to ? 'Reply: ' + row.text : 'Writing Post: ' + row.text)}</TableCell>
                                     <TableCell>{row.username}</TableCell>
-                                    <TableCell><button onClick={() => handleDelete(row.posts_id)}>Delete</button></TableCell>
+                                    <TableCell><button onClick={() => handleRemoveFlag(row.posts_id)}>Remove Flag</button><button onClick={() => handleDelete(row.posts_id)}>Delete</button></TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>

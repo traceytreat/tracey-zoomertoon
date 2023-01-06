@@ -71,8 +71,8 @@ useEffect(() => {
               </div>
             </Tooltip>}
           <h3>Contact Info:</h3>
-          {user.linkedin && <a href={user.linkedin}>LinkedIn</a>}<br />
-          {user.website && <a href={user.website}>Portfolio</a>}<br />
+          {user.linkedin && <><a href={user.linkedin}>LinkedIn</a><br /></>}
+          {user.website && <><a href={user.website}>Portfolio</a><br /></>}
           <a href={email}>Send email to {user.username}</a><br />
         </section>
       </div>

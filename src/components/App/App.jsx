@@ -25,6 +25,7 @@ import './App.css';
 import MainFeed from '../MainFeed/MainFeed';
 import NewPostPage from '../NewPostPage/NewPostPage';
 import AdminPage from '../AdminPage/AdminPage';
+import PostDetails from '../PostDetails/PostDetails';
 
 function App() {
   const dispatch = useDispatch();
@@ -77,6 +78,14 @@ function App() {
             path="/feed"
           >
             <MainFeed />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // Post details page
+            exact
+            path="/details/:id"
+          >
+            <PostDetails />
           </ProtectedRoute>
 
           <ProtectedRoute

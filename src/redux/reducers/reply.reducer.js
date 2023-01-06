@@ -1,10 +1,10 @@
-const postReducer = (state = [], action) => {
+const replyReducer = (state = [], action) => {
     switch (action.type) {
-      case 'SET_POSTS':
+      case 'SET_REPLIES':
         return action.payload;
       default:
         return state;
     }
   };
-  
-  export default postReducer;
+
+  export default replyReducer;

@@ -17,8 +17,8 @@ function NewPostPage() {
             showConfirmButton: false,
             html:
                 `<form action="/api/post/upload" method="post" enctype="multipart/form-data">
-                    <input type="file" name="drawing" />
-                    <input type="submit" value="Upload" />  
+                    <input type="file" accept="image/png, image/jpeg, image/jpg" name="drawing" />
+                    <input type="submit" value="Upload"/>  
                 </form>`
         })
     }
