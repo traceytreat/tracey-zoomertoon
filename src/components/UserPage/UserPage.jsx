@@ -1,11 +1,17 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import useReduxStore from '../../hooks/useReduxStore';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
 import tinycolor2 from "tinycolor2";
 import './UserPage.css';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import EditIcon from '@mui/icons-material/Edit';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { Tooltip } from '@mui/material';
 
 function UserPage() {
@@ -44,12 +50,12 @@ function UserPage() {
       src={user.profilepic}>
     </img>;
 
-useEffect(() => {
+  useEffect(() => {
 
-  dispatch({ type: 'FETCH_USER_POSTS', payload: {user_id: user.id} });
-  console.log('store is', store.post);
-  console.log('im here');
-}, []);
+    dispatch({ type: 'FETCH_USER_POSTS', payload: { user_id: user.id } });
+    console.log('store is', store.post);
+    console.log('im here');
+  }, []);
 
   return (
     <div className="content">
@@ -60,8 +66,8 @@ useEffect(() => {
       </div>
       <div className="container">
         <section className="user-info">
-        <Tooltip placement="top-start" title='Edit Profile'>
-          <EditIcon onClick={() => history.push('/edituser')} id="edit-button"/>
+          <Tooltip placement="top-start" title='Edit Profile'>
+            <EditIcon onClick={() => history.push('/edituser')} id="edit-button" />
           </Tooltip>
           {profilepic}
           {user.admin &&
@@ -84,7 +90,31 @@ useEffect(() => {
         </section>
         <section className='recent-posts'>
           <h3>Recent Activity</h3>
-          <p>{store.post.length === 0 ? 'No posts yet :(' : JSON.stringify(store.post)}</p>
+          {store.post.length === 0 ? `No posts yet :(` :
+            <TableContainer>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell align="center">Date</TableCell>
+                    <TableCell align="center">Post</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {store.post.map((row) => (
+                    <TableRow
+                      key={row.posts_id}
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    >
+                      <TableCell component="th" scope="row">
+                        {row.date}
+                      </TableCell>
+                      <TableCell><Link to={row.reply_to ? `/details/${row.reply_to}` : `/details/${row.posts_id}`}>{row.path ? 'Drawing Post' : (row.reply_to ? 'Reply: ' + row.text : 'Writing Post: ' + row.text)}</Link></TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          }
 
         </section>
       </div>

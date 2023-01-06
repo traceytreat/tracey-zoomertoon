@@ -11,8 +11,7 @@ import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Swal from 'sweetalert2';
 import './AdminPage.css';
-import { useHistory } from 'react-router-dom';
-
+import { useHistory, Link } from 'react-router-dom';
 function AdminPage() {
     const store = useReduxStore();
     const history = useHistory();
@@ -97,7 +96,7 @@ function AdminPage() {
                                     <TableCell component="th" scope="row">
                                         {row.date}
                                     </TableCell>
-                                    <TableCell>{row.path ? 'Drawing Post' : (row.reply_to ? 'Reply: ' + row.text : 'Writing Post: ' + row.text)}</TableCell>
+                                    <TableCell><Link to={row.reply_to ? `/details/${row.reply_to}` : `/details/${row.posts_id}`}>{row.path ? 'Drawing Post' : (row.reply_to ? 'Reply: ' + row.text : 'Writing Post: ' + row.text)}</Link></TableCell>
                                     <TableCell>{row.username}</TableCell>
                                     <TableCell><button onClick={() => handleRemoveFlag(row.posts_id)}>Remove Flag</button><button onClick={() => handleDelete(row.posts_id)}>Delete</button></TableCell>
                                 </TableRow>

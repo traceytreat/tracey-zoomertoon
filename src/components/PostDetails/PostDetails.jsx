@@ -66,7 +66,7 @@ function PostDetails() {
             </div>
             <div className="post-details-content">
 
-                <p>{JSON.stringify(post)}</p>
+                {/*<p>{JSON.stringify(post)}</p>*/}
                 <h3>{post[0]?.username} posted a {post[0]?.path ? 'drawing' : 'writing prompt'} on {post[0]?.date}</h3>
                 {post[0]?.path ? <img width='350' src={post[0]?.path} /> : <p>{post[0]?.text}</p>}
                 <br/>
@@ -84,7 +84,7 @@ function PostDetails() {
                     </li>
                 ))}
             </ul>
-            <p>{JSON.stringify(reply)}</p>
+            {/*<p>{JSON.stringify(reply)}</p>*/}
         </>
     );
 
