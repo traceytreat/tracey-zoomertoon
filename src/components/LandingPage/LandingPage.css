@@ -78,3 +78,30 @@ Grid
   flex-basis: 100%;
   max-width: 100%;
 }
+
+
+@font-face {
+  font-family: Kavivanar;
+  src: url(../../fonts/Kavivanar-Regular.ttf);
+}
+
+.big-text {
+  font-family: Kavivanar, Arial, Helvetica, sans-serif;
+  font-size: 80px;
+}
+
+.small-text {
+  font-family: Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.landing-page {
+  background-image: url('../../img/paper.jpeg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  height: 100vh;
+}
+
+.landing-page-container {
+  margin: 20px;
+}
