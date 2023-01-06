@@ -1,6 +1,18 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
+
+function* addReply(action){
+    try {
+        yield axios.post('/api/reply', action.payload);
+        console.log('Add reply', action.payload);
+        yield put({type: 'FETCH_REPLIES'})
+
+    } catch (error) {
+        console.log('Replies post request failed', error);
+    }
+}
+
 function* fetchReplies(action) {
     try{
         console.log('in fetchreplies reply saga')
@@ -12,6 +24,7 @@ function* fetchReplies(action) {
 }
 function* replySaga() {
     yield takeLatest('FETCH_REPLIES', fetchReplies);
+    yield takeLatest('ADD_REPLY', addReply);
 
 }
 export default replySaga;

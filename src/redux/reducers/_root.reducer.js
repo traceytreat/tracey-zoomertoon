@@ -4,6 +4,7 @@ import user from './user.reducer';
 import post from './post.reducer';
 import reply from './reply.reducer';
 import points from './points.reducer';
+import userDetails from './userdetails.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   post,
   reply,
   points,
+  userDetails,
 });
 
 export default rootReducer;

@@ -87,11 +87,18 @@ Grid
 
 .big-text {
   font-family: Kavivanar, Arial, Helvetica, sans-serif;
-  font-size: 80px;
+  font-size: 90px;
+  transform: skew(14deg, 8deg);
+  position: absolute;
+  left: 60px;
+  top: 50px;
 }
 
 .small-text {
   font-family: Tahoma, Geneva, Verdana, sans-serif;
+  position: absolute;
+  left: 100px;
+  bottom: 93px;
 }
 
 .landing-page {
@@ -100,6 +107,12 @@ Grid
   background-repeat: no-repeat;
   background-attachment: fixed;
   height: 100vh;
+  overflow: hidden;
+}
+
+.drawing-person {
+  position: absolute;
+  right: 380px;
 }
 
 .landing-page-container {

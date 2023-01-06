@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import useReduxStore from '../../hooks/useReduxStore';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import tinycolor2 from "tinycolor2";

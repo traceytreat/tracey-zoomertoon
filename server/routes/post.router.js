@@ -6,7 +6,7 @@ const storage = multer.diskStorage({
     cb(null, './public/images/uploads/')
   },
   filename: function (req, file, cb) {
-    cb(null, file.originalname)
+    cb(null, file.originalname.replace(/\s/g, ''))
   }
 })
 
@@ -71,7 +71,7 @@ router.get('/:id', (req, res) => {
 // GET all posts by a specific user
 router.get('/user/:id', (req, res) => {
   const queryText =
-    `SELECT "users_posts"."posts_id", "users_posts"."user_id", "posts"."path", "posts"."text", "posts"."post_type", "user"."username", "posts"."date" FROM "users_posts" 
+    `SELECT "users_posts"."posts_id", "users_posts"."user_id", "posts"."path", "posts"."text", "posts"."post_type", "user"."username", "posts"."date", "users_posts"."reply_to" FROM "users_posts" 
   JOIN "posts" ON "users_posts"."posts_id" = "posts"."id"
   JOIN "user" ON "users_posts"."user_id" = "user"."id"
   WHERE "users_posts"."action_type" = 'post'

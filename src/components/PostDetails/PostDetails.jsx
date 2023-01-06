@@ -29,15 +29,41 @@ function PostDetails() {
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Report'
-          }).then((result) => {
+        }).then((result) => {
             if (result.isConfirmed) {
-                dispatch({type: 'ADD_FLAG', payload: {posts_id: posts_id, action: 'add'}});
+                dispatch({ type: 'ADD_FLAG', payload: { posts_id: posts_id, action: 'add' } });
                 toast.success("Thanks for reporting this post. It will be reviewed.");
                 history.push('/feed');
             }
-          })
+        })
     }
-    
+
+    const handleReply = (posts_id) => {
+        Swal.fire({
+            title: 'Think of your best caption for this image!',
+            imageUrl: post[0].path,
+            imageWidth: 300,
+            input: 'textarea',
+            required: true
+        }).then((result) => {
+            if (result.isDismissed == false && result.value != '') {
+                dispatch({
+                    type: 'ADD_REPLY',
+                    payload:
+                    {
+                        user_id: user.id,
+                        posts_id: posts_id,
+                        text: result.value
+                    }
+                });
+                dispatch({ type: 'FETCH_REPLIES', payload: { user_id: user.id } })
+                toast.success("Successfully posted")
+            } else if (result.isDismissed == false) {
+                toast.error("Error: Cannot submit an empty reply.")
+            }
+        })
+    }
+
     const handleDeletePost = (posts_id) => {
         Swal.fire({
             title: 'Are you sure?',
@@ -47,15 +73,15 @@ function PostDetails() {
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Delete'
-          }).then((result) => {
+        }).then((result) => {
             if (result.isConfirmed) {
-                dispatch({type: 'DELETE_POST', payload: {posts_id: posts_id}});
+                dispatch({ type: 'DELETE_POST', payload: { posts_id: posts_id } });
                 toast.success("Deleted post");
                 history.push('/feed');
             }
-          })
+        })
     }
-    
+
 
     console.log(user);
     return (
@@ -70,17 +96,18 @@ function PostDetails() {
                 {/*<p>{JSON.stringify(post)}</p>*/}
                 <h3>{post[0]?.username} posted a {post[0]?.path ? 'drawing' : 'text'} on {format(parseISO(post[0]?.date), 'MM/dd/yyyy')} at {format(parseISO(post[0]?.date), 'hh:mm a')}</h3>
                 {post[0]?.path ? <img width='350' src={post[0]?.path} /> : <p>{post[0]?.text}</p>}
-                <br/>
-                {user?.id != post[0]?.user_id && <button onClick={() =>  handleReportPost(post[0]?.posts_id)}>Report</button>}
+                <br />
+                {user?.id != post[0]?.user_id && <button onClick={() => handleReportPost(post[0]?.posts_id)}>Report</button>}
                 {user?.id == post[0]?.user_id && <button onClick={() => handleDeletePost(post[0]?.posts_id)}>Delete this post</button>}
 
             </div>
             <h4>{reply.length == 0 ? 'No replies yet...be the first!' : 'Replies:'}</h4>
+            {post[0]?.path && <button onClick={() => handleReply(post[0]?.posts_id)}>Reply</button>}
             <ul id='reply-list'>
                 {reply?.map((r) => (
                     <li key={r?.posts_id}>
-                        <b>{r?.username}: {r?.text ? r?.text : <img width='250' src={r?.path} /> }</b> 
-                        {user?.id != r?.user_id && <button onClick={() =>  handleReportPost(r?.posts_id)}>Report</button>}
+                        <b>{r?.username}: {r?.text ? r?.text : <img width='250' src={r?.path} />}</b>
+                        {user?.id != r?.user_id && <button onClick={() => handleReportPost(r?.posts_id)}>Report</button>}
                         {user?.id == r?.user_id && <button onClick={() => handleDeletePost(r?.posts_id)}>Delete this post</button>}
                     </li>
                 ))}

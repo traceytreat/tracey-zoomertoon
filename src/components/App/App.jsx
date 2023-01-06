@@ -89,6 +89,14 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute
+            // User details page
+            exact
+            path="/profile/:id"
+          >
+            <PostDetails />
+          </ProtectedRoute>
+
+          <ProtectedRoute
             // Create a post
             exact
             path="/newpost"

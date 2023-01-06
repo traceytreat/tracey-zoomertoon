@@ -5,6 +5,17 @@ const {
 const encryptLib = require('../modules/encryption');
 const pool = require('../modules/pool');
 const userStrategy = require('../strategies/user.strategy');
+const multer = require('multer');
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './public/images/uploads/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname.replace(/\s/g, ''))
+  }
+})
+
+const upload = multer({ storage: storage })
 
 const router = express.Router();
 
@@ -71,3 +82,43 @@ router.put('/', rejectUnauthenticated, (req, res) => {
   })
 });
 module.exports = router;
+
+//upload drawing post
+router.post('/upload/post', upload.single('drawing'), (req, res) => {
+  // req.file is the name of your file in the form above, here 'uploaded_file'
+  // req.body will hold the text fields, if there were any 
+  console.log(req.file);
+  console.log('req.user is', req.user)
+  if (req.file) {
+    const newPath = './' + req.file.path.slice(7);
+    console.log(newPath);
+    console.log("Uploaded drawing post");
+    console.log("Now adding to posts");
+    const queryText = 
+    `INSERT INTO "posts" ("path", "post_type")
+    VALUES ($1, $2)
+    RETURNING id;`;
+    pool.query(queryText, [newPath, 'post'])
+    .then(result => {
+      const newPostId = result.rows[0].id;
+      const queryText2 = `INSERT INTO "users_posts" ("user_id", "posts_id", "action_type")
+      VALUES ($1, $2, $3)`;
+      pool.query(queryText2, [req.user.id, newPostId, 'post'])
+      .then(result => {
+        res.sendStatus(204).end();
+      }).catch(err => {
+        console.log('error in second query', err);
+        res.sendStatus(500)
+      })
+    }).catch(err => {
+      console.log('error in first query', err);
+      res.sendStatus(500)
+    })
+    // Refresh the page
+    // res.redirect("back");
+    
+  } else {
+    console.log("Failed to upload drawing");
+    res.sendStatus(500);
+  }
+});

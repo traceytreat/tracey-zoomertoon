@@ -16,7 +16,7 @@ function NewPostPage() {
         Swal.fire({
             showConfirmButton: false,
             html:
-                `<form action="/api/post/upload" method="post" enctype="multipart/form-data">
+                `<form action="/api/user/upload/post" method="post" enctype="multipart/form-data" onSubmit=${() => Swal.close()}>
                     <input type="file" accept="image/png, image/jpeg, image/jpg" name="drawing" />
                     <input type="submit" value="Upload"/>  
                 </form>`
