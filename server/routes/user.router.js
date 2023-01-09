@@ -69,19 +69,18 @@ router.put('/', rejectUnauthenticated, (req, res) => {
   const linkedin = req.body.linkedin;
   const website = req.body.website;
 
-  const queryText = 
-  `UPDATE "user"
+  const queryText =
+    `UPDATE "user"
   SET "email" = $1, "linkedin" = $2, "website" = $3
   WHERE "id" = $4`;
   pool.query(queryText, [email, linkedin, website, req.user.id])
-  .then(result => {
-    res.sendStatus(200);
-  }).catch(err => {
-    console.log('Error with put request', err);
-    res.sendStatus(500);
-  })
+    .then(result => {
+      res.sendStatus(200);
+    }).catch(err => {
+      console.log('Error with put request', err);
+      res.sendStatus(500);
+    })
 });
-module.exports = router;
 
 //upload drawing post
 router.post('/upload/post', upload.single('drawing'), (req, res) => {
@@ -94,31 +93,64 @@ router.post('/upload/post', upload.single('drawing'), (req, res) => {
     console.log(newPath);
     console.log("Uploaded drawing post");
     console.log("Now adding to posts");
-    const queryText = 
-    `INSERT INTO "posts" ("path", "post_type")
+    const queryText =
+      `INSERT INTO "posts" ("path", "post_type")
     VALUES ($1, $2)
     RETURNING id;`;
     pool.query(queryText, [newPath, 'post'])
-    .then(result => {
-      const newPostId = result.rows[0].id;
-      const queryText2 = `INSERT INTO "users_posts" ("user_id", "posts_id", "action_type")
-      VALUES ($1, $2, $3)`;
-      pool.query(queryText2, [req.user.id, newPostId, 'post'])
       .then(result => {
-        res.sendStatus(204).end();
+        const newPostId = result.rows[0].id;
+        const queryText2 = `INSERT INTO "users_posts" ("user_id", "posts_id", "action_type")
+      VALUES ($1, $2, $3)`;
+        pool.query(queryText2, [req.user.id, newPostId, 'post'])
+          .then(result => {
+            res.sendStatus(204).end();
+          }).catch(err => {
+            console.log('error in second query', err);
+            res.sendStatus(500)
+          })
       }).catch(err => {
-        console.log('error in second query', err);
+        console.log('error in first query', err);
         res.sendStatus(500)
       })
-    }).catch(err => {
-      console.log('error in first query', err);
-      res.sendStatus(500)
-    })
     // Refresh the page
     // res.redirect("back");
-    
+
   } else {
     console.log("Failed to upload drawing");
     res.sendStatus(500);
   }
 });
+
+//upload profile pic
+router.post('/upload/profilepic', upload.single('pic'), (req, res) => {
+  // req.file is the name of your file in the form above, here 'uploaded_file'
+  // req.body will hold the text fields, if there were any 
+  console.log(req.file);
+  console.log('req.user is', req.user)
+  if (req.file) {
+    const newPath = './' + req.file.path.slice(7);
+    console.log(newPath);
+    console.log("Uploaded profile pic");
+    console.log("Now updating user info");
+    const queryText =
+      `UPDATE "user"
+    SET "profilepic" = $1
+    WHERE "id" = $2;`
+    pool.query(queryText, [newPath, req.user.id])
+      .then(result => {
+        res.sendStatus(200);
+      }).catch(err => {
+        console.log('error in user router adding profile pic', err);
+        res.sendStatus(500)
+      })
+    // Refresh the page
+    // res.redirect("back");
+
+  } else {
+    console.log("Failed to upload profile pic");
+    res.sendStatus(500);
+  }
+});
+
+module.exports = router;

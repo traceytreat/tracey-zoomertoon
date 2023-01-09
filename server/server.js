@@ -12,7 +12,7 @@ const userRouter = require('./routes/user.router');
 const postRouter = require('./routes/post.router');
 const replyRouter = require('./routes/reply.router');
 const pointsRouter = require('./routes/points.router');
-const userDetailsRouter = require('./routes/points.router');
+const userDetailsRouter = require('./routes/userdetails.router');
 const lovesRouter = require('./routes/loves.router');
 
 // Body parser middleware

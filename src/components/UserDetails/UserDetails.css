@@ -1,0 +1,90 @@
+.content {
+    display: flex;
+    flex-direction: row;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-info {
+    margin-top: 100px;
+}
+
+.user-info svg,
+.user-info img {
+    border: 2px solid black;
+    border-radius: 50%;
+}
+
+#admin-badge {
+    background: rgb(249, 182, 41);
+    background: linear-gradient(148deg, rgba(249, 182, 41, 1) 0%, rgba(255, 255, 255, 1) 15%, rgba(249, 182, 41, 1) 50%, rgba(255, 255, 255, 1) 70%, rgba(249, 182, 41, 1) 100%);
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-left: 35px;
+    width: 60px;
+    text-align: center;
+    font-weight: bold;
+    border: 2px solid black;
+    border-radius: 20px;
+    user-select: none;
+}
+
+
+.back-button svg {
+    position: fixed;
+    opacity: 0.8;
+    background-color: black;
+    border-radius: 50%;
+    transition: all 0.2s;
+}
+
+.back-button svg:hover {
+    opacity: 1;
+}
+
+.back-button {
+    margin: 20px;
+}
+
+[data-backbutton]:before {
+    position: fixed;
+    left: 88px;
+    top: 42px;
+    content: attr(data-backbutton);
+    color: white;
+    padding: 5px;
+    text-align: center;
+    opacity: 0;
+    width: 0px;
+    height: 18px;
+    transition: width 1s, opacity 1s;
+    overflow: hidden;
+}
+
+[data-backbutton]:hover:before {
+    background-color: black;
+    color: white;
+    width: 150px;
+    opacity: 1;
+}
+
+#edit-button {
+    position: absolute;
+    left: 170px;
+    top: 115px;
+    background-color: white;
+    padding: 5px;
+}
+
+#edit-button:hover {
+    position: absolute;
+    left: 170px;
+    top: 115px;
+    background-color: white;
+    color:rgb(112, 112, 112);
+    border: 2px solid rgb(112, 112, 112);
+    padding: 5px;
+}

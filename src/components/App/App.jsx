@@ -26,6 +26,7 @@ import MainFeed from '../MainFeed/MainFeed';
 import NewPostPage from '../NewPostPage/NewPostPage';
 import AdminPage from '../AdminPage/AdminPage';
 import PostDetails from '../PostDetails/PostDetails';
+import UserDetails from '../UserDetails/UserDetails';
 import Guidelines from '../Guidelines/Guidelines';
 
 function App() {
@@ -94,7 +95,7 @@ function App() {
             exact
             path="/profile/:id"
           >
-            <PostDetails />
+            <UserDetails />
           </ProtectedRoute>
 
           <ProtectedRoute

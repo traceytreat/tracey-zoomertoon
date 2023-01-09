@@ -10,7 +10,7 @@ router.get('/:id', (req, res) => {
     WHERE "user"."id" = $1;`
 
     pool.query(queryText, [req.params.id]).then((results) => {
-        // console.log('query GET results from DB:', results)
+        console.log('query user details GET results from DB:', results.rows)
         res.send(results.rows);
     }).catch((err) => {
         console.log('error getting user details from DB', err);

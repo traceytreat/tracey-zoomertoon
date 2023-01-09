@@ -109,7 +109,7 @@ function MainFeed() {
                             <CardContent>
                                 <div className='post-header'>
                                     On {format(parseISO(item.date), 'MM/dd/yyyy')} at {format(parseISO(item.date), 'hh:mm a')},<br />
-                                    {item.username} shared a {item.path ? 'drawing' : 'text'} post:
+                                    <Link to={item.user_id == user.id ? `/user` : `/profile/${item.user_id}`}>{item.username}</Link> shared a {item.path ? 'drawing' : 'text'} post:
                                 </div>
                                 <Tooltip placement="top-start" title='Click to view' followCursor>
                                     <div onClick={() => history.push('/details/' + item.posts_id)}className='post-preview'>

@@ -9,34 +9,36 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import tinycolor2 from "tinycolor2";
 import { format, parseISO } from 'date-fns';
-import './UserPage.css';
+import './UserDetails.css';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import EditIcon from '@mui/icons-material/Edit';
 import { useParams, useHistory, Link } from 'react-router-dom';
 import { Tooltip } from '@mui/material';
 
-function UserPage() {
+function UserDetails() {
     const { id } = useParams();
-  //const user = useSelector((store) => store.user);
+  const userDetails = useSelector((store) => store.userDetails);
   const store = useReduxStore();
+  const post = useSelector((store) => store.post);
   const history = useHistory();
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch({ type: 'FETCH_USER_DETAILS', payload: { user_id: id } });
     dispatch({ type: 'FETCH_USER_POSTS', payload: { user_id: id } });
-    console.log('store is', store.post);
   }, []);
 
-  const email = 'mailto:' + user.email
-  const post = useSelector((store) => store.post);
-  const userDetails = useSelector((store) => store.userDetails);
-  /*
-  const defaultcolor = '#' + userDetails?.defaultpic.toString(16);
+  const email = 'mailto:' + userDetails[0].email
+ 
+  
+  
+  
+  const defaultcolor = '#' + userDetails[0]?.defaultpic.toString(16);
+  //const defaultcolor = '#000000';
   const complement = tinycolor2(defaultcolor).complement().toHexString();
 
   const profilepic =
-    userDetails?.profilepic == './images/profilepics/default.svg' ? <svg
+    userDetails[0]?.profilepic == './images/profilepics/default.svg' ? <svg
       xmlns="http://www.w3.org/2000/svg"
       width="150"
       height="150"
@@ -57,7 +59,7 @@ function UserPage() {
       </g>
     </svg> : <img
       width="150px"
-      src={userDetails?.profilepic}>
+      src={userDetails[0]?.profilepic}>
     </img>;
 
   return (
@@ -69,24 +71,21 @@ function UserPage() {
       </div>
       <div className="container">
         <section className="user-info">
-          <Tooltip placement="top-start" title='Edit Profile'>
-            <EditIcon onClick={() => history.push('/edituser')} id="edit-button" />
-          </Tooltip>
           {profilepic}
-          {userDetails?.admin &&
+          {userDetails[0]?.admin &&
             <Tooltip placement='top' title="This user is an Administrator." arrow>
               <div id="admin-badge">
                 ADMIN
               </div>
             </Tooltip>}
           <h3>Contact Info:</h3>
-          {userDetails?.linkedin && <><a href={userDetails?.linkedin}>LinkedIn</a><br /></>}
-          {userDetails?.website && <><a href={userDetails?.website}>Portfolio</a><br /></>}
-          <a href={userDetails?.email}>Send email to {userDetails?.username}</a><br />
+          {userDetails[0]?.linkedin && <><a href={userDetails[0]?.linkedin}>LinkedIn</a><br /></>}
+          {userDetails[0]?.website && <><a href={userDetails[0]?.website}>Portfolio</a><br /></>}
+          <a href={userDetails[0]?.email}>Send email to {userDetails[0]?.username}</a><br />
         </section>
       </div>
       <div className="container">
-        <h2>{user.username}</h2>
+        <h2>{userDetails[0].username}</h2>
         <section className='post-statistics'>
           <h3>Post statistics</h3>
           <p>Graph goes here.</p>
@@ -122,11 +121,10 @@ function UserPage() {
         </section>
       </div>
     </div>
-    
+
   );
-  */
- return(JSON.stringify(userDetails));
+  
 }
 
 // this allows us to use <App /> in index.js
-export default UserPage;
+export default UserDetails;
