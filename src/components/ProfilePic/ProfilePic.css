@@ -1,0 +1,18 @@
+#profilepic-default svg,
+#profilepic-default img,
+#profilepic-pointer svg,
+#profilepic-pointer img  {
+    border: 2px solid black;
+    border-radius: 50%;
+
+}
+
+#profilepic-default svg:hover,
+#profilepic-default img:hover {
+    cursor: default;
+}
+
+#profilepic-pointer svg:hover,
+#profilepic-pointer img:hover {
+    cursor: default;
+}

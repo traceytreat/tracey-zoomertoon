@@ -1,21 +1,14 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
-import { useTheme } from '@mui/material/styles';
 import useReduxStore from '../../hooks/useReduxStore';
-import Box from '@mui/material/Box';
 import tinycolor2 from "tinycolor2";
 import './UserPage.css';
-import IconButton from '@mui/material/IconButton';
-import FirstPageIcon from '@mui/icons-material/FirstPage';
-import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
-import LastPageIcon from '@mui/icons-material/LastPage';
 import EditIcon from '@mui/icons-material/Edit';
 import { useHistory } from 'react-router-dom';
 import { Tooltip } from '@mui/material';
 import BackButton from '../BackButton/BackButton';
 import RecentPosts from '../RecentPosts/RecentPosts';
+import ProfilePic from '../ProfilePic/ProfilePic';
 
 function UserPage() {
   const user = useSelector((store) => store.user);
@@ -50,6 +43,7 @@ function UserPage() {
       </g>
     </svg> : <img
       width="150px"
+      height="150px"
       src={user.profilepic}>
     </img>;
 
@@ -68,7 +62,7 @@ function UserPage() {
           <Tooltip placement="top-start" title='Edit Profile'>
             <EditIcon onClick={() => history.push('/edituser')} id="edit-button" />
           </Tooltip>
-          {profilepic}
+          <ProfilePic url={user.profilepic} num={user.defaultpic} size='150' cursor='default'/>
           {user.admin &&
             <Tooltip placement='top' title="This user is an Administrator." arrow>
               <div id="admin-badge">

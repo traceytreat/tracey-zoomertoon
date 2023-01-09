@@ -12,11 +12,13 @@
     margin-top: 100px;
 }
 
+/*
 .user-info svg,
 .user-info img {
     border: 2px solid black;
     border-radius: 50%;
 }
+*/
 
 #admin-badge {
     background: rgb(249, 182, 41);

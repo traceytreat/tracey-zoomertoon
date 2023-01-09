@@ -69,12 +69,14 @@
     justify-content: flex-start;
 }
 
+/*
 #profilepic svg,
 #profilepic img {
     border: 2px solid black;
     border-radius: 50%;
 
 }
+*/
 
 #profilepic svg:hover,
 #profilepic img:hover {
