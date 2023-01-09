@@ -66,7 +66,7 @@ function PostDetails() {
         })
     }
 
-    const handleDeletePost = (posts_id) => {
+    const handleDeletePost = (posts_id, postType) => {
         Swal.fire({
             title: 'Are you sure?',
             text: "This action cannot be reversed",
@@ -81,7 +81,10 @@ function PostDetails() {
                 dispatch({ type: 'FETCH_REPLIES', payload: { posts_id: id } });
                 dispatch({ type: 'FETCH_POST_DETAILS', payload: { posts_id: id } });
                 toast.success("Deleted post");
-                //history.push('/feed');
+                if (postType == 'post'){
+                    dispatch({ type: 'FETCH_POSTS', payload: { posts_id: id } });
+                    history.push('/feed');
+                }
             }
         })
     }
@@ -115,7 +118,7 @@ function PostDetails() {
                 <br />
                 {(user?.id != post[0]?.user_id) && ((loves.includes(post[0]?.posts_id)) ? <button onClick={() => handleRemoveLove(post[0]?.posts_id)}>Unlove this</button> : <button onClick={() => handleAddLove(post[0]?.posts_id)}>Love this</button>)}
                 {user?.id != post[0]?.user_id && <button onClick={() => handleReportPost(post[0]?.posts_id)}>Report</button>}
-                {user?.id == post[0]?.user_id && <button onClick={() => handleDeletePost(post[0]?.posts_id)}>Delete this post</button>}
+                {user?.id == post[0]?.user_id && <button onClick={() => handleDeletePost(post[0]?.posts_id, 'post')}>Delete this post</button>}
 
             </div>
             <h4>{reply.length == 0 ? 'No replies yet...be the first!' : 'Replies:'}</h4>
@@ -126,7 +129,7 @@ function PostDetails() {
                         <b>{r?.username}: {r?.text ? r?.text : <img width='250' src={r?.path} />}</b>
                         {(user?.id != r?.user_id) && ((loves.includes(r?.posts_id)) ? <button onClick={() => handleRemoveLove(r?.posts_id)}>Unlove this</button> : <button onClick={() => handleAddLove(r?.posts_id)}>Love this</button>)}
                         {user?.id != r?.user_id && <button onClick={() => handleReportPost(r?.posts_id)}>Report</button>}
-                        {user?.id == r?.user_id && <button onClick={() => handleDeletePost(r?.posts_id)}>Delete this post</button>}
+                        {user?.id == r?.user_id && <button onClick={() => handleDeletePost(r?.posts_id, 'reply')}>Delete this post</button>}
                     </li>
                 ))}
             </ul>
