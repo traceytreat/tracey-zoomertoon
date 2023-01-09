@@ -32,45 +32,6 @@
     user-select: none;
 }
 
-
-.back-button svg {
-    position: fixed;
-    opacity: 0.8;
-    background-color: black;
-    border-radius: 50%;
-    transition: all 0.2s;
-}
-
-.back-button svg:hover {
-    opacity: 1;
-}
-
-.back-button {
-    margin: 20px;
-}
-
-[data-backbutton]:before {
-    position: fixed;
-    left: 88px;
-    top: 42px;
-    content: attr(data-backbutton);
-    color: white;
-    padding: 5px;
-    text-align: center;
-    opacity: 0;
-    width: 0px;
-    height: 18px;
-    transition: width 1s, opacity 1s;
-    overflow: hidden;
-}
-
-[data-backbutton]:hover:before {
-    background-color: black;
-    color: white;
-    width: 150px;
-    opacity: 1;
-}
-
 #edit-button {
     position: absolute;
     left: 170px;

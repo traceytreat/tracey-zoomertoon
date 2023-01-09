@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams, useHistory } from 'react-router-dom';
-import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
+import { useParams, useHistory, Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { format, parseISO } from 'date-fns';
 import './PostDetails.css';
 import { toast } from 'react-toastify';
+import BackButton from '../BackButton/BackButton';
 
 function PostDetails() {
     const { id } = useParams();
@@ -105,15 +105,11 @@ function PostDetails() {
     console.log(user);
     return (
         <>
-            <div className="back-button">
-                <div data-backbutton="Back to Main Feed">
-                    <ArrowCircleLeftIcon style={{ fontSize: "72px", color: "white", cursor: "pointer" }} onClick={() => history.push('/feed')} />
-                </div>
-            </div>
+            <BackButton />
             <div className="post-details-content">
 
                 {<p>loves: {JSON.stringify(loves)}</p>}
-                <h3>{post[0]?.username} posted a {post[0]?.path ? 'drawing' : 'text'} {/*on {format(parseISO(post[0]?.date), 'MM/dd/yyyy')} at {format(parseISO(post[0]?.date), 'hh:mm a')*/}</h3>
+                <h3><Link to={post[0]?.user_id == user.id ? `/user` : `/profile/${post[0]?.user_id}`}>{post[0]?.username}</Link> posted a {post[0]?.path ? 'drawing' : 'text'} on {post[0] ? format(parseISO(post[0]?.date), 'MM/dd/yyyy') : ''} at {post[0] ? format(parseISO(post[0]?.date), 'hh:mm a') : ''}</h3>
                 {post[0]?.path ? <img width='350' src={post[0]?.path} /> : <p>{post[0]?.text}</p>}
                 <br />
                 {(user?.id != post[0]?.user_id) && ((loves.includes(post[0]?.posts_id)) ? <button onClick={() => handleRemoveLove(post[0]?.posts_id)}>Unlove this</button> : <button onClick={() => handleAddLove(post[0]?.posts_id)}>Love this</button>)}
@@ -126,7 +122,7 @@ function PostDetails() {
             <ul id='reply-list'>
                 {reply?.map((r) => (
                     <li key={r?.posts_id}>
-                        <b>{r?.username}: {r?.text ? r?.text : <img width='250' src={r?.path} />}</b>
+                        <b><Link to={r?.user_id == user.id ? `/user` : `/profile/${r?.user_id}`}>{r?.username}</Link>: {r?.text ? r?.text : <img width='250' src={r?.path} />}</b>
                         {(user?.id != r?.user_id) && ((loves.includes(r?.posts_id)) ? <button onClick={() => handleRemoveLove(r?.posts_id)}>Unlove this</button> : <button onClick={() => handleAddLove(r?.posts_id)}>Love this</button>)}
                         {user?.id != r?.user_id && <button onClick={() => handleReportPost(r?.posts_id)}>Report</button>}
                         {user?.id == r?.user_id && <button onClick={() => handleDeletePost(r?.posts_id, 'reply')}>Delete this post</button>}

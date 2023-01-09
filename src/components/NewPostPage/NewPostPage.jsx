@@ -1,11 +1,11 @@
 import React from "react";
 import './NewPostPage.css';
-import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import Swal from 'sweetalert2'
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import BackButton from "../BackButton/BackButton";
 
 function NewPostPage() {
     const history = useHistory();
@@ -50,11 +50,7 @@ function NewPostPage() {
     //User chooses which type of post to create.
     return (
         <div className="bg">
-            <div className="back-button">
-                <div data-backbutton="Back to Main Feed">
-                    <ArrowCircleLeftIcon style={{ fontSize: "72px", color: "white", cursor: "pointer" }} onClick={() => history.push('/feed')} />
-                </div>
-            </div>
+            <BackButton />
             <div className="newpost-container">
                 <div className="choose-post-type">
                     <h2>Create New Post</h2>

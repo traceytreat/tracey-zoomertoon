@@ -8,12 +8,12 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import useReduxStore from '../../hooks/useReduxStore';
 import { format, parseISO } from 'date-fns';
-import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Swal from 'sweetalert2';
 import './AdminPage.css';
 import { useHistory, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import BackButton from '../BackButton/BackButton';
 function AdminPage() {
     const store = useReduxStore();
     const history = useHistory();
@@ -63,11 +63,7 @@ function AdminPage() {
 
     return (
         <>
-            <div className="back-button">
-                <div data-backbutton="Back to Main Feed">
-                    <ArrowCircleLeftIcon style={{ fontSize: "72px", color: "white", cursor: "pointer" }} onClick={() => history.push('/feed')} />
-                </div>
-            </div>
+            <BackButton />
             <div id="admin-page">
 
                 <h2>Admin Dashboard</h2>

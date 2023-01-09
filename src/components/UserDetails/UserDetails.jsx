@@ -10,10 +10,9 @@ import TableRow from '@mui/material/TableRow';
 import tinycolor2 from "tinycolor2";
 import { format, parseISO } from 'date-fns';
 import './UserDetails.css';
-import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
-import EditIcon from '@mui/icons-material/Edit';
 import { useParams, useHistory, Link } from 'react-router-dom';
 import { Tooltip } from '@mui/material';
+import BackButton from '../BackButton/BackButton';
 
 function UserDetails() {
     const { id } = useParams();
@@ -64,11 +63,7 @@ function UserDetails() {
 
   return (
     <div className="content">
-      <div className="back-button">
-        <div data-backbutton="Back to Main Feed">
-          <ArrowCircleLeftIcon style={{ fontSize: "72px", color: "white", cursor: "pointer" }} onClick={() => history.push('/feed')} />
-        </div>
-      </div>
+      <BackButton />
       <div className="container">
         <section className="user-info">
           {profilepic}

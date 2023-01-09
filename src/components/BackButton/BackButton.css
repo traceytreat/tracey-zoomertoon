@@ -1,0 +1,17 @@
+.back-button svg {
+    position: fixed;
+    opacity: 0.6;
+    background-color: black;
+    border-radius: 50%;
+    transition: all 0.2s;
+    transform: scale(0.7);
+}
+
+.back-button svg:hover {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.back-button {
+    margin: 20px;
+}
