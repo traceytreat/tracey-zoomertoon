@@ -1,25 +1,16 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import useReduxStore from '../../hooks/useReduxStore';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
 import tinycolor2 from "tinycolor2";
-import { format, parseISO } from 'date-fns';
 import './UserDetails.css';
-import { useParams, useHistory, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Tooltip } from '@mui/material';
 import BackButton from '../BackButton/BackButton';
+import RecentPosts from '../RecentPosts/RecentPosts';
 
 function UserDetails() {
     const { id } = useParams();
   const userDetails = useSelector((store) => store.userDetails);
-  const store = useReduxStore();
   const post = useSelector((store) => store.post);
-  const history = useHistory();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -33,7 +24,6 @@ function UserDetails() {
   
   
   const defaultcolor = '#' + userDetails[0]?.defaultpic.toString(16);
-  //const defaultcolor = '#000000';
   const complement = tinycolor2(defaultcolor).complement().toHexString();
 
   const profilepic =
@@ -76,7 +66,7 @@ function UserDetails() {
           <h3>Contact Info:</h3>
           {userDetails[0]?.linkedin && <><a href={userDetails[0]?.linkedin}>LinkedIn</a><br /></>}
           {userDetails[0]?.website && <><a href={userDetails[0]?.website}>Portfolio</a><br /></>}
-          <a href={userDetails[0]?.email}>Send email to {userDetails[0]?.username}</a><br />
+          <a href={email}>Send email to {userDetails[0]?.username}</a><br />
         </section>
       </div>
       <div className="container">
@@ -87,32 +77,7 @@ function UserDetails() {
         </section>
         <section className='recent-posts'>
           <h3>Recent Activity</h3>
-          {post.length === 0 ? `No posts yet :(` :
-            <TableContainer>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell align="center">Date</TableCell>
-                    <TableCell align="center">Post</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {post.map((row) => (
-                    <TableRow
-                      key={row.posts_id}
-                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                    >
-                      <TableCell component="th" scope="row">
-                      {format(parseISO(row?.date), 'MM/dd/yyyy hh:mm a')}
-                      </TableCell>
-                      <TableCell><Link to={row?.reply_to ? `/details/${row.reply_to}` : `/details/${row?.posts_id}`}>{row?.path ? 'Drawing Post' : (row?.reply_to ? 'Reply: ' + row?.text : 'Text Post: ' + row?.text)}</Link></TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          }
-
+          <RecentPosts post={post} />
         </section>
       </div>
     </div>
