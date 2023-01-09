@@ -111,6 +111,7 @@ function PostDetails() {
                 <h3>{post[0]?.username} posted a {post[0]?.path ? 'drawing' : 'text'} {/*on {format(parseISO(post[0]?.date), 'MM/dd/yyyy')} at {format(parseISO(post[0]?.date), 'hh:mm a')*/}</h3>
                 {post[0]?.path ? <img width='350' src={post[0]?.path} /> : <p>{post[0]?.text}</p>}
                 <br />
+                {(user?.id != post[0]?.user_id && loves.includes(post[0]?.posts_id)) ? <button onClick={() => handleRemoveLove(post[0]?.posts_id)}>Unlove this</button> : <button onClick={() => handleAddLove(post[0]?.posts_id)}>Love this</button>}
                 {user?.id != post[0]?.user_id && <button onClick={() => handleReportPost(post[0]?.posts_id)}>Report</button>}
                 {user?.id == post[0]?.user_id && <button onClick={() => handleDeletePost(post[0]?.posts_id)}>Delete this post</button>}
 
