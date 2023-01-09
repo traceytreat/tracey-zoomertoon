@@ -45,7 +45,7 @@ function* deletePost(action) {
     try {
         yield axios.delete('/api/post/' + action.payload.posts_id);
         console.log('Delete post', action.payload.posts_id);
-        yield put({type: 'FETCH_POSTS'})
+        //yield put({type: 'FETCH_POSTS'})
     } catch (error) {
         console.log('Posts delete request failed', error);
     }

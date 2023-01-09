@@ -78,8 +78,10 @@ function PostDetails() {
         }).then((result) => {
             if (result.isConfirmed) {
                 dispatch({ type: 'DELETE_POST', payload: { posts_id: posts_id } });
+                dispatch({ type: 'FETCH_REPLIES', payload: { posts_id: id } });
+                dispatch({ type: 'FETCH_POST_DETAILS', payload: { posts_id: id } });
                 toast.success("Deleted post");
-                history.push('/feed');
+                //history.push('/feed');
             }
         })
     }
