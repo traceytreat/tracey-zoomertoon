@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { Tooltip } from '@mui/material';
 import BackButton from '../BackButton/BackButton';
 import ProfilePic from '../ProfilePic/ProfilePic';
+import Socials from '../Socials/Socials';
 import RecentPosts from '../RecentPosts/RecentPosts';
 
 function UserDetails() {
@@ -32,10 +33,7 @@ function UserDetails() {
                 ADMIN
               </div>
             </Tooltip>}
-          <h3>Contact Info:</h3>
-          {userDetails[0]?.linkedin && <><a href={userDetails[0]?.linkedin}>LinkedIn</a><br /></>}
-          {userDetails[0]?.website && <><a href={userDetails[0]?.website}>Portfolio</a><br /></>}
-          <a href={email}>Send email to {userDetails[0]?.username}</a><br />
+          <Socials username={userDetails[0]?.username} linkedin={userDetails[0]?.linkedin} website={userDetails[0]?.website} email={userDetails[0]?.email}/>
         </section>
       </div>
       <div className="container">

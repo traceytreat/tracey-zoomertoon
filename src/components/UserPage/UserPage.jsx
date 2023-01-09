@@ -3,20 +3,17 @@ import { useSelector, useDispatch } from 'react-redux';
 import useReduxStore from '../../hooks/useReduxStore';
 import tinycolor2 from "tinycolor2";
 import './UserPage.css';
-import EditIcon from '@mui/icons-material/Edit';
-import { useHistory } from 'react-router-dom';
 import { Tooltip } from '@mui/material';
 import BackButton from '../BackButton/BackButton';
+import Socials from '../Socials/Socials';
 import RecentPosts from '../RecentPosts/RecentPosts';
 import ProfilePic from '../ProfilePic/ProfilePic';
+import EditProfileButton from '../EditProfileButton/EditProfileButton';
 
 function UserPage() {
   const user = useSelector((store) => store.user);
   const store = useReduxStore();
-  const history = useHistory();
   const dispatch = useDispatch();
-
-  const email = 'mailto:' + user.email
 
   const defaultcolor = '#' + user.defaultpic.toString(16);
   const complement = tinycolor2(defaultcolor).complement().toHexString();
@@ -59,9 +56,7 @@ function UserPage() {
       <BackButton />
       <div className="container">
         <section className="user-info">
-          <Tooltip placement="top-start" title='Edit Profile'>
-            <EditIcon onClick={() => history.push('/edituser')} id="edit-button" />
-          </Tooltip>
+          <EditProfileButton />
           <ProfilePic url={user.profilepic} num={user.defaultpic} size='150' cursor='default'/>
           {user.admin &&
             <Tooltip placement='top' title="This user is an Administrator." arrow>
@@ -69,10 +64,7 @@ function UserPage() {
                 ADMIN
               </div>
             </Tooltip>}
-          <h3>Contact Info:</h3>
-          {user.linkedin && <><a href={user.linkedin}>LinkedIn</a><br /></>}
-          {user.website && <><a href={user.website}>Portfolio</a><br /></>}
-          <a href={email}>Send email to {user.username}</a><br />
+          <Socials username={user.username} linkedin={user.linkedin} website={user.website} email={user.email}/>
         </section>
       </div>
       <div className="container">

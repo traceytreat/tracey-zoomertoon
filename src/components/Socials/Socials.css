@@ -1,0 +1,15 @@
+.social-bar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.social-icon {
+    transform: scale(0.7);
+    transition: all 0.2s;
+}
+
+.social-icon:hover {
+    transform: scale(1);
+}

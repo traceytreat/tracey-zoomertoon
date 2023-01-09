@@ -4,7 +4,7 @@ import './ProfilePic.css';
 
 //props are url(user.profilepic), num(user.defaultpic), size (size of image), cursor (type of cursor)
 function ProfilePic(props){
-    const defaultcolor = '#' + props.num.toString(16);
+    const defaultcolor = '#' + props.num?.toString(16);
     const complement = tinycolor2(defaultcolor).complement().toHexString();
 
     const cursorDivName = 'profilepic-' + props.cursor;
