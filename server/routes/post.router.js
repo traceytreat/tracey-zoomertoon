@@ -34,6 +34,7 @@ router.get('/', (req, res) => {
   })
 });
 
+// get all flagged posts
 router.get('/admin', (req, res) => {
   const queryText =
     `SELECT "users_posts"."posts_id", "users_posts"."user_id", "users_posts"."reply_to", "posts"."path", "posts"."text", "posts"."post_type", "user"."username", "posts"."date"  FROM "users_posts"
@@ -142,6 +143,7 @@ router.post('/upload', upload.single('drawing'), (req, res) => {
 
 });
 
+// delete a post
 router.delete('/:id', (req, res) => {
   console.log('in router delete');
   console.log('req.params.id is', req.params.id);
@@ -166,6 +168,7 @@ router.delete('/:id', (req, res) => {
   })
 })
 
+// add flag
 router.put('/flag/:id', (req, res) => {
   console.log('in router put');
   console.log('req.params.id is', req.params.id);
@@ -183,6 +186,5 @@ router.put('/flag/:id', (req, res) => {
     res.sendStatus(500);
   })
 })
-
 
 module.exports = router;

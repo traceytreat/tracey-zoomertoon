@@ -26,6 +26,7 @@ import MainFeed from '../MainFeed/MainFeed';
 import NewPostPage from '../NewPostPage/NewPostPage';
 import AdminPage from '../AdminPage/AdminPage';
 import PostDetails from '../PostDetails/PostDetails';
+import Guidelines from '../Guidelines/Guidelines';
 
 function App() {
   const dispatch = useDispatch();
@@ -94,6 +95,14 @@ function App() {
             path="/profile/:id"
           >
             <PostDetails />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // Community guidelines
+            exact
+            path="/rules"
+          >
+            <Guidelines />
           </ProtectedRoute>
 
           <ProtectedRoute
