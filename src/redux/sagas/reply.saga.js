@@ -6,7 +6,7 @@ function* addReply(action){
     try {
         yield axios.post('/api/reply', action.payload);
         console.log('Add reply', action.payload);
-        yield put({type: 'FETCH_REPLIES'})
+        yield put({type: 'FETCH_REPLIES', payload: action.payload})
 
     } catch (error) {
         console.log('Replies post request failed', error);
