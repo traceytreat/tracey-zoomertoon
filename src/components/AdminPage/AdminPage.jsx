@@ -13,6 +13,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Swal from 'sweetalert2';
 import './AdminPage.css';
 import { useHistory, Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 function AdminPage() {
     const store = useReduxStore();
     const history = useHistory();
@@ -32,16 +33,12 @@ function AdminPage() {
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Remove Flag'
+            confirmButtonText: 'Unflag'
           }).then((result) => {
             if (result.isConfirmed) {
                 dispatch({type: 'REMOVE_FLAG', payload: {posts_id: posts_id, action: 'remove'}});
                 console.log(posts_id);
-              Swal.fire(
-                'Removed!',
-                'The flag has been removed.',
-                'success'
-              )
+                toast.success('The post was unflagged.');
             }
           })
     }
@@ -59,11 +56,7 @@ function AdminPage() {
             if (result.isConfirmed) {
                 dispatch({type: 'DELETE_POST_ADMIN', payload: {posts_id: posts_id}});
                 console.log(posts_id);
-              Swal.fire(
-                'Deleted!',
-                'The post has been deleted.',
-                'success'
-              )
+                toast.success('This post has been removed.');
             }
           })
     }

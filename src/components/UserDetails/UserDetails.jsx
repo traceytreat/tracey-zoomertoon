@@ -28,7 +28,7 @@ function UserDetails() {
     dispatch({ type: 'FETCH_USER_POSTS', payload: { user_id: id } });
   }, []);
 
-  const email = 'mailto:' + userDetails[0].email
+  const email = 'mailto:' + userDetails[0]?.email
  
   
   
@@ -85,7 +85,7 @@ function UserDetails() {
         </section>
       </div>
       <div className="container">
-        <h2>{userDetails[0].username}</h2>
+        <h2>{userDetails[0]?.username}</h2>
         <section className='post-statistics'>
           <h3>Post statistics</h3>
           <p>Graph goes here.</p>
