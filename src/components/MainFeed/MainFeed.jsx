@@ -15,6 +15,8 @@ import './MainFeed.css';
 // and the posts are displayed on the right side.
 function MainFeed() {
     const user = useSelector((store) => store.user);
+    const userAll = useSelector((store) => store.userAll).map(p => p.posts_id);
+    const lovesAll = useSelector((store) => store.lovesAll).map(p => p.posts_id);
     const history = useHistory();
     const store = useReduxStore();
     const dispatch = useDispatch();
@@ -45,6 +47,8 @@ function MainFeed() {
 
     useEffect(() => {
         dispatch({ type: 'FETCH_POINTS', payload: { user_id: user.id } });
+        dispatch({ type: 'FETCH_USER_ALL', payload: { user_id: user.id } });
+        dispatch({ type: 'FETCH_LOVES_ALL'});
         dispatch({ type: 'FETCH_POSTS' });
         console.log('store is', store.post);
     }, []);
@@ -53,15 +57,15 @@ function MainFeed() {
         <div className='feed-container'>
             <section id="sidebar">
                 <Tooltip placement="right" title="View Profile" followCursor>
-                    <Link to='/user'><ProfilePic url={user.profilepic} num={user.defaultpic} size='200' cursor='pointer' /></Link>
+                    <Link to='/user'><ProfilePic url={user.profilepic} num={user.defaultpic} size='175' cursor='pointer' /></Link>
                 </Tooltip>
                 <h2>{user.username}</h2>
                 <Grid container spacing={0.5} direction="row" alignItems="center" justifyContent="center">
                     <Grid item>
-                        <span id="points">Points: {store.points[0]?.count}</span>
+                        <span id="points">Points: {Number(store.points[0]?.count) + Number(userAll?.filter(p => lovesAll?.includes(p)).length)}</span>
                     </Grid>
                     <Grid item>
-                        <Tooltip placement="right" title="Your Points = How many posts you have made + How many loves you've gotten" arrow>
+                        <Tooltip placement="right" title={<span style={{ whiteSpace: 'pre-line' }}>{`Number of posts created: ${store.points[0]?.count} \nNumber of likes received: ${userAll?.filter(p => lovesAll?.includes(p)).length}`}</span>} arrow>
                             <HelpIcon fontSize="small" color='black' />
                         </Tooltip>
                     </Grid>

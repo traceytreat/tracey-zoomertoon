@@ -1,6 +1,9 @@
+import BackButton from "../BackButton/BackButton";
+
 function Guidelines() {
     return (
         <div id="guidelines">
+            <BackButton />
             <div id="guidelines-header">
                 <h1>Rules and Guidelines</h1>
             </div>

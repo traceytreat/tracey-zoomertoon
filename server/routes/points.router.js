@@ -3,8 +3,6 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 router.get('/:id', (req, res) => {
-    console.log('in points router');
-    console.log('req params id', req.params.id)
     const queryText =
       `SELECT COUNT(*) FROM "users_posts" 
     WHERE "users_posts"."action_type" = 'post'

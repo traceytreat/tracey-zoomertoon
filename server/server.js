@@ -14,6 +14,7 @@ const replyRouter = require('./routes/reply.router');
 const pointsRouter = require('./routes/points.router');
 const userDetailsRouter = require('./routes/userdetails.router');
 const lovesRouter = require('./routes/loves.router');
+const lovesAllRouter = require('./routes/lovesall.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -33,6 +34,7 @@ app.use('/api/reply', replyRouter);
 app.use('/api/points', pointsRouter);
 app.use('/api/userdetails', userDetailsRouter);
 app.use('/api/loves', lovesRouter);
+app.use('/api/lovesall', lovesAllRouter);
 
 // Serve static files
 app.use(express.static('build'));

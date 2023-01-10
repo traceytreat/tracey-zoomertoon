@@ -52,4 +52,21 @@ router.get('/:id', (req, res) => {
             res.sendStatus(500);
         })
 });
+
+// get all the posts made by a user (this is used for calculating the total points)
+router.get('/user/:id', (req, res) => {
+    const queryText =
+        `SELECT "users_posts"."posts_id" FROM "users_posts" 
+    WHERE "users_posts"."action_type" = 'post'
+    AND "users_posts"."user_id" = $1;`
+
+    pool.query(queryText, [req.params.id]).then((results) => {
+        // console.log('query GET results from DB:', results)
+        res.send(results.rows);
+    }).catch((err) => {
+        console.log('error getting users posts from DB', err);
+        res.sendStatus(500);
+    })
+
+})
 module.exports = router;
