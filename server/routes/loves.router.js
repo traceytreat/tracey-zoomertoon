@@ -10,7 +10,17 @@ router.post('/', (req, res) => {
       VALUES ($1, $2, $3);`
     pool.query(queryText, [req.body.user_id, req.body.posts_id, 'love'])
         .then(result => {
-            res.sendStatus(200);
+            const queryText2 = `
+            UPDATE "posts"
+            SET "loves" = "loves" + 1
+            WHERE "id" = $1;`
+            pool.query(queryText2, [req.body.posts_id])
+            .then(result => {
+                res.sendStatus(200);
+            }).catch(err => {
+                console.log(err);
+                res.sendStatus(500);
+            })
         }).catch(err => {
             console.log(err);
             res.sendStatus(500);
@@ -27,7 +37,17 @@ router.delete('/:id/:postid', (req, res) => {
       AND "posts_id" = $2`
     pool.query(queryText, [req.params.id, req.params.postid])
         .then(result => {
-            res.sendStatus(200);
+            const queryText2 = `
+            UPDATE "posts"
+            SET "loves" = "loves" - 1
+            WHERE "id" = $1;`
+            pool.query(queryText2, [req.params.postid])
+            .then(result => {
+                res.sendStatus(200);
+            }).catch(err => {
+                console.log(err);
+                res.sendStatus(500);
+            })
         }).catch(err => {
             console.log(err);
             res.sendStatus(500);
