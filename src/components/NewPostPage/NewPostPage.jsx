@@ -35,6 +35,7 @@ function NewPostPage() {
                         'Content-Type': 'multipart/form-data'
                     }
                 }).then((result) => {
+                    dispatch({type:'FETCH_POSTS'});
                     console.log('Post upload success');
                 }).catch((err) => {
                     console.log('Post upload fail', err);

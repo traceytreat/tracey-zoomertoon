@@ -1,9 +1,12 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const {
+    rejectUnauthenticated,
+  } = require('../modules/authentication-middleware');
 
 // get all loves made by all users (used for calculating points)
-router.get('/', (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
     //console.log('in get all the loves made by all users');
     const queryText =
         `SELECT "users_posts"."posts_id" FROM "users_posts" 

@@ -1,9 +1,12 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const {
+    rejectUnauthenticated,
+  } = require('../modules/authentication-middleware');
 
 // add a love
-router.post('/', (req, res) => {
+router.post('/', rejectUnauthenticated, (req, res) => {
     //console.log('req.body for post is', req.body);
     const queryText = `
     INSERT INTO "users_posts" ("user_id", "posts_id", "action_type")
@@ -29,7 +32,7 @@ router.post('/', (req, res) => {
 });
 
 // remove a love
-router.delete('/:id/:postid', (req, res) => {
+router.delete('/:id/:postid', rejectUnauthenticated, (req, res) => {
     //console.log('req.params for delete is', req.params);
     const queryText = `
     DELETE FROM "users_posts"

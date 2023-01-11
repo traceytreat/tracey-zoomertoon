@@ -11,7 +11,7 @@ const storage = multer.diskStorage({
     cb(null, './public/images/uploads/')
   },
   filename: function (req, file, cb) {
-    cb(null, file.originalname.replace(/\s/g, ''))
+    cb(null, (Date.now() + file.originalname).replace(/\s/g, ''))
   }
 })
 
@@ -200,4 +200,18 @@ router.post('/upload/profilepic', upload.single('pic'), rejectUnauthenticated, (
   }
 });
 
+//reset profile pic
+router.put('/profilepic', rejectUnauthenticated, (req, res) => {
+  const queryText =
+    `UPDATE "user"
+    SET "profilepic" = $1
+    WHERE "id" = $2;`
+  pool.query(queryText, ['./images/profilepics/default.svg', req.user.id])
+    .then(result => {
+      res.sendStatus(200);
+    }).catch(err => {
+      console.log('error in user router updating profile pic', err);
+      res.sendStatus(500)
+    })
+})
 module.exports = router;

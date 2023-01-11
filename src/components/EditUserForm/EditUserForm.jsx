@@ -50,7 +50,7 @@ function EditUserForm() {
                     }
                 }).then((result) => {
                     console.log('Profile pic upload success');
-                    //location.reload();
+                    location.reload();
                 }).catch((err) => {
                     console.log('Profile pic upload fail', err);
                 });
@@ -70,6 +70,7 @@ function EditUserForm() {
             </div>
             <div>
                 <button onClick={handleProfileUpload}>Upload Profile Pic</button>
+                {(user.profilepic != './images/profilepics/default.svg') && <button onClick={() => dispatch({type: 'RESET_PROFILE_PIC'})}>Reset Profile Pic</button>}
             </div>
             <form onSubmit={saveChanges}>
                 <div>

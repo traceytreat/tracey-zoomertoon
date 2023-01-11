@@ -81,7 +81,7 @@ function PostDetails() {
                 dispatch({ type: 'DELETE_POST', payload: { posts_id: posts_id } });
                 dispatch({ type: 'FETCH_REPLIES', payload: { posts_id: id } });
                 dispatch({ type: 'FETCH_POST_DETAILS', payload: { posts_id: id } });
-                toast.success("Deleted post");
+                toast.success("Deleted post"); //set timer for this
                 if (postType == 'post'){
                     dispatch({ type: 'FETCH_POSTS', payload: { posts_id: id } });
                     history.push('/feed');

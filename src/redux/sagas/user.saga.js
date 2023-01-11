@@ -34,9 +34,19 @@ function* editUser(action) {
   }
 }
 
+function* resetProfilePic(){
+  try{
+    yield axios.put('/api/user/profilepic');
+    yield put({ type: 'FETCH_USER'});
+  } catch (error) {
+    console.log('User profile pic put request failed', error);
+  }
+}
+
 function* userSaga() {
   yield takeLatest('FETCH_USER', fetchUser);
   yield takeLatest('SAVE_CHANGES', editUser);
+  yield takeLatest('RESET_PROFILE_PIC', resetProfilePic);
 }
 
 export default userSaga;
