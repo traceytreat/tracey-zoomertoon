@@ -83,7 +83,7 @@ router.put('/', rejectUnauthenticated, (req, res) => {
 });
 
 //upload drawing post
-router.post('/upload/post', upload.single('drawing'), (req, res) => {
+router.post('/upload/post', upload.single('drawing'), rejectUnauthenticated, (req, res) => {
   // req.file is the name of your file in the form above, here 'uploaded_file'
   // req.body will hold the text fields, if there were any 
   console.log(req.file);
@@ -125,7 +125,7 @@ router.post('/upload/post', upload.single('drawing'), (req, res) => {
 
 //upload post reply (drawing)
 
-router.post('/upload/drawingreply', upload.single('drawing'), (req, res) => {
+router.post('/upload/drawingreply', upload.single('drawing'), rejectUnauthenticated, (req, res) => {
   // req.file is the name of your file in the form above, here 'uploaded_file'
   // req.body will hold the text fields, if there were any 
   console.log('req.body of upload reply is', req.body);
@@ -170,7 +170,7 @@ router.post('/upload/drawingreply', upload.single('drawing'), (req, res) => {
 
 
 //upload profile pic
-router.post('/upload/profilepic', upload.single('pic'), (req, res) => {
+router.post('/upload/profilepic', upload.single('pic'), rejectUnauthenticated, (req, res) => {
   // req.file is the name of your file in the form above, here 'uploaded_file'
   // req.body will hold the text fields, if there were any 
   console.log(req.file);

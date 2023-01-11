@@ -45,9 +45,38 @@
     float: left;
 }
 
-.post-header {
-    margin-bottom: 10px;
+.post-preview {
+    margin-top: 10px;
 }
+.post-header {
+    padding-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    border-bottom: 1px solid darkgray;
+}
+
+.post-header-text {
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+    align-self: flex-start;
+    width: 200px;
+    margin-left: 10px;
+}
+
+
+.post-header-timestamp {
+    align-self: flex-end;
+    margin: 0;
+}
+
+.post-header-details {
+    align-self: flex-start;
+    font-size: 14px;
+}
+
 
 .MuiCard-root {
     height: fit-content !important;
@@ -67,41 +96,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-}
-
-/*
-#profilepic svg,
-#profilepic img {
-    border: 2px solid black;
-    border-radius: 50%;
-
-}
-*/
-
-#profilepic svg:hover,
-#profilepic img:hover {
-    cursor: pointer;
-}
-
-[data-tooltip]:before {
-    position: absolute;
-    content: attr(data-tooltip);
-    color: white;
-    padding: 5px;
-    margin-left: auto;
-    margin-right: auto;
-    left: 0;
-    right: 0;
-    top: 10px;
-    width: fit-content;
-    text-align: center;
-    opacity: 0;
-    transition: all 0.2s;
-}
-
-[data-tooltip]:hover:before {
-    background-color: black;
-    opacity: 1;
 }
 
 .post-preview:hover {

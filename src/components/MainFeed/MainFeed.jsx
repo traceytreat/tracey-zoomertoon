@@ -49,7 +49,7 @@ function MainFeed() {
     useEffect(() => {
         dispatch({ type: 'FETCH_POINTS', payload: { user_id: user.id } });
         dispatch({ type: 'FETCH_USER_ALL', payload: { user_id: user.id } });
-        dispatch({ type: 'FETCH_LOVES_ALL'});
+        dispatch({ type: 'FETCH_LOVES_ALL' });
         dispatch({ type: 'FETCH_POSTS' });
         console.log('store is', store.post);
     }, []);
@@ -81,12 +81,15 @@ function MainFeed() {
                 columnClassName="main-feed-column">
                 {store.post.map((item, index) => {
                     return (
-                        
+
                         <Card className="main-feed-post" sx={{ width: 275 }} key={index}>
                             <CardContent>
                                 <div className='post-header'>
-                                    On {format(parseISO(item.date), 'MM/dd/yyyy')} at {format(parseISO(item.date), 'hh:mm a')},<br />
-                                    <Link to={item.user_id == user.id ? `/user` : `/profile/${item.user_id}`}>{item.username}</Link> shared a {item.path ? 'drawing' : 'text'} post:
+                                    <ProfilePic url={item.profilepic} num={item.defaultpic} size='40' cursor='pointer' />
+                                    <div className='post-header-text'>
+                                        <span className='post-header-timestamp'>{format(parseISO(item.date), 'MM/dd/yyyy hh:mm a')}</span>
+                                        <span className='post-header-details'><Link to={item.user_id == user.id ? `/user` : `/profile/${item.user_id}`}>{item.username}</Link> shared a {<br/>} {item.path ? 'drawing' : 'text'} post:</span>
+                                    </div>
                                 </div>
                                 <Tooltip placement="top-start" title='Click to view' followCursor>
                                     <div onClick={() => history.push('/details/' + item.posts_id)} className='post-preview'>
