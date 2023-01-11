@@ -4,7 +4,7 @@ const router = express.Router();
 
 // add a love
 router.post('/', (req, res) => {
-    console.log('req.body for post is', req.body);
+    //console.log('req.body for post is', req.body);
     const queryText = `
     INSERT INTO "users_posts" ("user_id", "posts_id", "action_type")
       VALUES ($1, $2, $3);`
@@ -30,7 +30,7 @@ router.post('/', (req, res) => {
 
 // remove a love
 router.delete('/:id/:postid', (req, res) => {
-    console.log('req.params for delete is', req.params);
+    //console.log('req.params for delete is', req.params);
     const queryText = `
     DELETE FROM "users_posts"
       WHERE "user_id" = $1
@@ -57,7 +57,7 @@ router.delete('/:id/:postid', (req, res) => {
 
 // select all posts/replies that a user has loved
 router.get('/:id', (req, res) => {
-    console.log('user id in get is', req.params.id);
+    //console.log('user id in get is', req.params.id);
     const queryText = `
     SELECT "users_posts"."posts_id"  FROM "users_posts" --get the post id
     JOIN "posts" ON "users_posts"."posts_id" = "posts"."id"

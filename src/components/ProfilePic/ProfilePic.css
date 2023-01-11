@@ -14,5 +14,5 @@
 
 #profilepic-pointer svg:hover,
 #profilepic-pointer img:hover {
-    cursor: default;
+    cursor: pointer;
 }

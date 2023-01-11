@@ -4,7 +4,7 @@ const router = express.Router();
 
 // get all loves made by all users (used for calculating points)
 router.get('/', (req, res) => {
-    console.log('in get all the loves made by all users');
+    //console.log('in get all the loves made by all users');
     const queryText =
         `SELECT "users_posts"."posts_id" FROM "users_posts" 
         WHERE "users_posts"."action_type" = 'love';`

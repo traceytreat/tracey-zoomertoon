@@ -3,7 +3,7 @@ import axios from 'axios';
 
 function* fetchPoints(action) {
     try{
-        console.log('in fetchpoints points saga')
+        //console.log('in fetchpoints points saga')
         const response = yield axios.get('/api/points/' + action.payload.user_id);
         yield put({ type: 'SET_POINTS', payload: response.data });
     } catch (error) {

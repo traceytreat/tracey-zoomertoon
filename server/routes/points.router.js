@@ -9,7 +9,7 @@ router.get('/:id', (req, res) => {
     AND "users_posts"."user_id" = $1;`
   
     pool.query(queryText, [req.params.id]).then((results) => {
-      console.log('query points GET results from DB:', results.rows)
+      //console.log('query points GET results from DB:', results.rows)
       res.send(results.rows);
     }).catch((err) => {
       console.log('error getting points from DB', err);

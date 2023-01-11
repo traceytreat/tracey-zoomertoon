@@ -12,7 +12,7 @@ function* fetchPosts() {
 
 function* fetchUserPosts(action) {
     try{
-        console.log('in fetchUserPosts');
+        //console.log('in fetchUserPosts');
         const response = yield axios.get('/api/post/user/' + action.payload.user_id)
         yield put({type: 'SET_POSTS', payload: response.data})
     } catch (error) {
@@ -32,7 +32,7 @@ function* fetchAdminPosts() {
 function* addPost(action) {
     try {
         yield axios.post('/api/post', action.payload);
-        console.log('Add post', action.payload);
+        //console.log('Add post', action.payload);
         yield put({type: 'FETCH_POSTS'})
 
     } catch (error) {
@@ -44,7 +44,7 @@ function* deletePost(action) {
     console.log('action payload is', action.payload)
     try {
         yield axios.delete('/api/post/' + action.payload.posts_id);
-        console.log('Delete post', action.payload.posts_id);
+        //console.log('Delete post', action.payload.posts_id);
         //yield put({type: 'FETCH_POSTS'})
     } catch (error) {
         console.log('Posts delete request failed', error);
@@ -55,7 +55,7 @@ function* deletePost_Admin(action) {
     console.log('action payload is', action.payload)
     try {
         yield axios.delete('/api/post/' + action.payload.posts_id);
-        console.log('Delete post', action.payload.posts_id);
+        //console.log('Delete post', action.payload.posts_id);
         yield put({type: 'FETCH_ADMIN_POSTS'})
     } catch (error) {
         console.log('Posts admin delete request failed', error);

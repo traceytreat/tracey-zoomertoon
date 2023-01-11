@@ -3,7 +3,7 @@ import axios from 'axios';
 
 function* fetchLoves(action) {
     try{
-        console.log('in fetchloves loves saga', action)
+        //console.log('in fetchloves loves saga', action)
         const response = yield axios.get('/api/loves/' + action.payload.user_id);
         yield put({ type: 'SET_LOVES', payload: response.data });
     } catch (error) {
@@ -14,7 +14,7 @@ function* fetchLoves(action) {
 function* addLove(action) {
     try {
         yield axios.post('/api/loves/', action.payload);
-        console.log('Add love', action.payload);
+        //console.log('Add love', action.payload);
         yield put({type: 'FETCH_LOVES', payload: action.payload});
         yield put({type: 'FETCH_POST_DETAILS', payload: action.payload});
 
@@ -26,7 +26,7 @@ function* addLove(action) {
 function* removeLove(action) {
     try {
         yield axios.delete(`/api/loves/${action.payload.user_id}/${action.payload.posts_id}`);
-        console.log('Remove love', action.payload);
+        //console.log('Remove love', action.payload);
         yield put({type: 'FETCH_LOVES', payload: action.payload});
         yield put({type: 'FETCH_POST_DETAILS', payload: action.payload});
 
@@ -38,7 +38,7 @@ function* removeLove(action) {
 // For calculating the 'loves' section of the points on main feed
 function* fetchLovesAll(){
     try{
-        console.log('in fetchlovesall');
+        //console.log('in fetchlovesall');
         const response = yield axios.get('/api/lovesall');
         yield put({ type: 'SET_LOVES_ALL', payload: response.data });
     } catch (error) {
@@ -48,7 +48,7 @@ function* fetchLovesAll(){
 
 function* fetchUserAll(action){
     try{
-        console.log('in fetchuserall loves saga', action)
+        //console.log('in fetchuserall loves saga', action)
         const response = yield axios.get('/api/loves/user/' + action.payload.user_id);
         yield put({ type: 'SET_USER_ALL', payload: response.data });
     } catch (error) {

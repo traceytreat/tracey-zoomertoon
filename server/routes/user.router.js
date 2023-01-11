@@ -63,8 +63,8 @@ router.post('/logout', (req, res) => {
 
 //Edit user info
 router.put('/', rejectUnauthenticated, (req, res) => {
-  console.log('in put request');
-  console.log('req.user is', req.user);
+  //console.log('in put request');
+  //console.log('req.user is', req.user);
   const email = req.body.email;
   const linkedin = req.body.linkedin;
   const website = req.body.website;
@@ -104,7 +104,8 @@ router.post('/upload/post', upload.single('drawing'), (req, res) => {
       VALUES ($1, $2, $3)`;
         pool.query(queryText2, [req.user.id, newPostId, 'post'])
           .then(result => {
-            res.sendStatus(204).end();
+            //location.href('/#/feed');
+            res.sendStatus(204);
           }).catch(err => {
             console.log('error in second query', err);
             res.sendStatus(500)
@@ -121,6 +122,49 @@ router.post('/upload/post', upload.single('drawing'), (req, res) => {
     res.sendStatus(500);
   }
 });
+
+//upload post reply (drawing)
+/*
+router.post('/upload/reply', upload.single('drawing'), (req, res) => {
+  // req.file is the name of your file in the form above, here 'uploaded_file'
+  // req.body will hold the text fields, if there were any 
+  console.log(req.file);
+  console.log('req.user is', req.user)
+  if (req.file) {
+    const newPath = './' + req.file.path.slice(7);
+    console.log(newPath);
+    console.log("Uploaded drawing reply");
+    console.log("Now adding to posts");
+    const queryText =
+      `INSERT INTO "posts" ("path", "post_type")
+    VALUES ($1, $2)
+    RETURNING id;`;
+    pool.query(queryText, [newPath, 'reply'])
+      .then(result => {
+        const newPostId = result.rows[0].id;
+        const queryText2 = `INSERT INTO "users_posts" ("user_id", "posts_id", "action_type", "reply_to")
+      VALUES ($1, $2, $3)`;
+        pool.query(queryText2, [req.user.id, newPostId, 'post',])
+          .then(result => {
+            //location.href('/#/feed');
+            res.sendStatus(204);
+          }).catch(err => {
+            console.log('error in second query', err);
+            res.sendStatus(500)
+          })
+      }).catch(err => {
+        console.log('error in first query', err);
+        res.sendStatus(500)
+      })
+    // Refresh the page
+    // res.redirect("back");
+
+  } else {
+    console.log("Failed to upload drawing");
+    res.sendStatus(500);
+  }
+});
+*/
 
 //upload profile pic
 router.post('/upload/profilepic', upload.single('pic'), (req, res) => {

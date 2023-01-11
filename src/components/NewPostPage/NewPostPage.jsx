@@ -1,6 +1,7 @@
 import React from "react";
 import './NewPostPage.css';
 import Swal from 'sweetalert2'
+import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
@@ -12,21 +13,71 @@ function NewPostPage() {
     const user = useSelector((store) => store.user);
     const dispatch = useDispatch();
 
-    const newDrawing = () => {
-        Swal.fire({
-            showConfirmButton: false,
-            html:
-                `<form action="/api/user/upload/post" method="post" enctype="multipart/form-data">
-                    <input type="file" accept="image/png, image/jpeg, image/jpg" name="drawing" />
-                    <input type="submit" value="Upload"/>  
-                </form>`
-        })
+
+    const experimental = () => {
+        console.log('clicked')
     }
+    const newDrawing = async () => {
+        const { value: file } = await Swal.fire({
+            title: 'Upload a drawing post',
+            text: 'Please review our rules before posting.',
+            input: 'file',
+            inputAttributes: {
+                'accept': 'image/png, image/jpeg, image/jpg',
+                'aria-label': 'Upload a drawing post'
+            },
+            preConfirm: (file) => {
+                let formData = new FormData();
+                formData.append("drawing", file);
+                axios.post('/api/user/upload/post', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }).then((result) => {
+                    console.log('Post upload success');
+                }).catch((err) => {
+                    console.log('Post upload fail', err);
+                });
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                toast.success('Successfully posted');
+                history.push('/feed');
+            }
+        })
+        /*
+        if (file) {
+            let formData = new FormData();
+            formData.append("drawing", file);
+            axios.post('/api/user/upload/post', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }).then((result) => {
+
+                //toast.success("Successfully posted");
+                console.log('Post upload success');
+                //history.push('/feed');
+            })
+                .catch((err) => {
+                    console.log('Post upload fail', err);
+                });
+
+
+        }
+        Swal.fire({ title: "Successfully posted" }).then((result) => {
+            console.log('im here');
+            history.push('/feed');
+        })*/
+
+    }
+
 
     const newText = () => {
         Swal.fire({
+            title: 'Upload a text prompt',
+            text: 'Please review our rules before posting.',
             input: 'textarea',
-            required: true
         }).then((result) => {
             if (result.isDismissed == false && result.value != '') {
                 dispatch({
@@ -38,7 +89,7 @@ function NewPostPage() {
                         text: result.value
                     }
                 });
-                dispatch({type: 'FETCH_POINTS', payload: {user_id : user.id}})
+                dispatch({ type: 'FETCH_POINTS', payload: { user_id: user.id } })
                 toast.success("Successfully posted")
                 history.push('/feed');
             } else if (result.isDismissed == false) {
@@ -60,6 +111,9 @@ function NewPostPage() {
                     <h3>-or-</h3>
                     <button onClick={newText} className="btn">
                         New Text Post
+                    </button>
+                    <button onClick={experimental}>
+                        Experimental Features
                     </button>
                 </div>
             </div>

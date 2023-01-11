@@ -8,6 +8,7 @@ import Masonry from 'react-masonry-css'
 import ProfilePic from '../ProfilePic/ProfilePic';
 import HelpIcon from '@mui/icons-material/Help';
 import { Grid, Tooltip, Card, CardContent } from '@mui/material';
+//import Drawer from '@mui/material/Drawer';
 import './MainFeed.css';
 
 // This is the main feed of the app.
@@ -24,9 +25,9 @@ function MainFeed() {
     // Code for masonry layout
     const breakpointColumnsObj = {
         default: 3,
-        1100: 3,
-        700: 2,
-        500: 1
+        //1100: 3,
+        1200: 2,
+        1000: 1
     };
 
     // Code for return to top button.
@@ -80,6 +81,7 @@ function MainFeed() {
                 columnClassName="main-feed-column">
                 {store.post.map((item, index) => {
                     return (
+                        
                         <Card className="main-feed-post" sx={{ width: 275 }} key={index}>
                             <CardContent>
                                 <div className='post-header'>

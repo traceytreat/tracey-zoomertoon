@@ -30,50 +30,59 @@ function EditUserForm() {
         history.push('/user');
     };
 
+    const handleProfileUpload = () => {
+        console.log('in handleprofileupload')
+    }
+
     return (
-        <form className='edit-user-form' onSubmit={saveChanges}>
+        <div className='edit-user-form'>
             <div>
                 <h2>Edit Profile</h2>
-                <ProfilePic url={user.profilepic} num={user.defaultpic} size='150' cursor='default'/><br />
+                <ProfilePic url={user.profilepic} num={user.defaultpic} size='150' cursor='default' /><br />
             </div>
             <div>
-                <label htmlFor='linkedin'>
-                    LinkedIn URL:
-                    <input
-                        type="url"
-                        name="linkedin"
-                        value={linkedin}
-                        onChange={(event) => setLinkedin(event.target.value)}
-                    />
-                </label>
+                <button onClick={handleProfileUpload}>Upload Profile Pic</button>
             </div>
-            <div>
-                <label htmlFor='portfolio'>
-                    Portfolio URL:
-                    <input
-                        type="url"
-                        name="portfolio"
-                        value={website}
-                        onChange={(event) => setWebsite(event.target.value)}
-                    />
-                </label>
-            </div>
-            <div>
-                <label htmlFor='email'>
-                    Email:
-                    <input
-                        type="text"
-                        name="email"
-                        value={email}
-                        required
-                        onChange={(event) => setEmail(event.target.value)}
-                    />
-                </label>
-            </div>
-            <div>
-                <input className="btn" type="submit" name="submit" value="Save Changes" />
-            </div>
-        </form>
+            <form onSubmit={saveChanges}>
+                <div>
+                    <label htmlFor='linkedin'>
+                        LinkedIn URL:
+                        <input
+                            type="url"
+                            name="linkedin"
+                            value={linkedin}
+                            onChange={(event) => setLinkedin(event.target.value)}
+                        />
+                    </label>
+                </div>
+                <div>
+                    <label htmlFor='portfolio'>
+                        Portfolio URL:
+                        <input
+                            type="url"
+                            name="portfolio"
+                            value={website}
+                            onChange={(event) => setWebsite(event.target.value)}
+                        />
+                    </label>
+                </div>
+                <div>
+                    <label htmlFor='email'>
+                        Email:
+                        <input
+                            type="text"
+                            name="email"
+                            value={email}
+                            required
+                            onChange={(event) => setEmail(event.target.value)}
+                        />
+                    </label>
+                </div>
+                <div>
+                    <input className="btn" type="submit" name="submit" value="Save Changes" />
+                </div>
+            </form>
+        </div>
     );
 }
 
