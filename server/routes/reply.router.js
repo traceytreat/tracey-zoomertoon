@@ -10,6 +10,7 @@ router.get('/:id', (req, res) => {
     JOIN "posts" ON "users_posts"."posts_id" = "posts"."id"
     JOIN "user" ON "users_posts"."user_id" = "user"."id"
     WHERE "posts"."post_type" = 'reply'
+    AND "users_posts"."action_type" = 'post'
     AND "users_posts"."reply_to" = $1
     ORDER BY "users_posts"."posts_id" DESC;`;
 

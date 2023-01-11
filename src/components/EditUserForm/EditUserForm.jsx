@@ -50,7 +50,7 @@ function EditUserForm() {
                     }
                 }).then((result) => {
                     console.log('Profile pic upload success');
-                    location.reload();
+                    //location.reload();
                 }).catch((err) => {
                     console.log('Profile pic upload fail', err);
                 });
@@ -64,7 +64,7 @@ function EditUserForm() {
 
     return (
         <div className='edit-user-form'>
-            <div>
+            <div key={user.profilepic}>
                 <h2>Edit Profile</h2>
                 <ProfilePic url={user.profilepic} num={user.defaultpic} size='150' cursor='default' /><br />
             </div>

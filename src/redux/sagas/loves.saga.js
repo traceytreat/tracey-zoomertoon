@@ -16,7 +16,7 @@ function* addLove(action) {
         yield axios.post('/api/loves/', action.payload);
         //console.log('Add love', action.payload);
         yield put({type: 'FETCH_LOVES', payload: action.payload});
-        yield put({type: 'FETCH_POST_DETAILS', payload: action.payload});
+        //yield put({type: 'FETCH_POST_DETAILS', payload: action.payload});
 
     } catch (error) {
         console.log('Loves post request failed', error);
@@ -28,7 +28,7 @@ function* removeLove(action) {
         yield axios.delete(`/api/loves/${action.payload.user_id}/${action.payload.posts_id}`);
         //console.log('Remove love', action.payload);
         yield put({type: 'FETCH_LOVES', payload: action.payload});
-        yield put({type: 'FETCH_POST_DETAILS', payload: action.payload});
+        //yield put({type: 'FETCH_POST_DETAILS', payload: action.payload});
 
     } catch (error) {
         console.log('Loves delete request failed', error);

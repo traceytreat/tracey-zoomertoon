@@ -124,10 +124,11 @@ router.post('/upload/post', upload.single('drawing'), (req, res) => {
 });
 
 //upload post reply (drawing)
-/*
-router.post('/upload/reply', upload.single('drawing'), (req, res) => {
+
+router.post('/upload/drawingreply', upload.single('drawing'), (req, res) => {
   // req.file is the name of your file in the form above, here 'uploaded_file'
   // req.body will hold the text fields, if there were any 
+  console.log('req.body of upload reply is', req.body);
   console.log(req.file);
   console.log('req.user is', req.user)
   if (req.file) {
@@ -141,11 +142,13 @@ router.post('/upload/reply', upload.single('drawing'), (req, res) => {
     RETURNING id;`;
     pool.query(queryText, [newPath, 'reply'])
       .then(result => {
+        console.log('In the second query now');
         const newPostId = result.rows[0].id;
         const queryText2 = `INSERT INTO "users_posts" ("user_id", "posts_id", "action_type", "reply_to")
-      VALUES ($1, $2, $3)`;
-        pool.query(queryText2, [req.user.id, newPostId, 'post',])
+        VALUES ($1, $2, $3, $4)`;
+        pool.query(queryText2, [req.user.id, newPostId, 'post', req.body.posts_id])
           .then(result => {
+            console.log('both queries worked');
             //location.href('/#/feed');
             res.sendStatus(204);
           }).catch(err => {
@@ -164,7 +167,7 @@ router.post('/upload/reply', upload.single('drawing'), (req, res) => {
     res.sendStatus(500);
   }
 });
-*/
+
 
 //upload profile pic
 router.post('/upload/profilepic', upload.single('pic'), (req, res) => {

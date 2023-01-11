@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useHistory, Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import axios from 'axios';
 import { format, parseISO } from 'date-fns';
 import './PostDetails.css';
 import { toast } from 'react-toastify';
@@ -91,14 +92,47 @@ function PostDetails() {
 
     const handleAddLove = (posts_id) => {
         dispatch({ type: 'ADD_LOVE', payload: { user_id: user.id, posts_id: posts_id } });
-        dispatch({ type: 'FETCH_REPLIES', payload: { posts_id: id } });
-        dispatch({ type: 'FETCH_POST_DETAILS', payload: { posts_id: id } });
+        //dispatch({ type: 'FETCH_REPLIES', payload: { posts_id: id } });
+        //dispatch({ type: 'FETCH_POST_DETAILS', payload: { posts_id: id } });
     }
 
     const handleRemoveLove = (posts_id) => {
         dispatch({ type: 'REMOVE_LOVE', payload: { user_id: user.id, posts_id: posts_id } });
-        dispatch({ type: 'FETCH_REPLIES', payload: { posts_id: id } });
-        dispatch({ type: 'FETCH_POST_DETAILS', payload: { posts_id: id } });
+        //dispatch({ type: 'FETCH_REPLIES', payload: { posts_id: id } });
+        //dispatch({ type: 'FETCH_POST_DETAILS', payload: { posts_id: id } });
+    }
+
+    const handleDrawingReply = async (posts_id) => {
+        const { value: file } = await Swal.fire({
+            title: 'Draw a picture according to the caption below!',
+            text: post[0]?.text,
+            input: 'file',
+            inputAttributes: {
+                'accept': 'image/png, image/jpeg, image/jpg',
+                'aria-label': 'Upload a drawing'
+            },
+            preConfirm: (file) => {
+                let formData = new FormData();
+                formData.append("drawing", file);
+                formData.append("posts_id", posts_id);
+                axios.post('/api/user/upload/drawingreply', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }).then((result) => {
+                    console.log('Reply upload success');
+                    location.reload();
+                }).catch((err) => {
+                    console.log('Reply upload fail', err);
+                });
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch({ type: 'FETCH_REPLIES', payload: { posts_id: id } });
+                dispatch({ type: 'FETCH_POST_DETAILS', payload: { posts_id: id } });
+                toast.success('Successfully updated');
+            }
+        })
     }
 
 
@@ -111,13 +145,12 @@ function PostDetails() {
                 {post[0]?.path ? <img width='350' src={post[0]?.path} /> : <p>{post[0]?.text}</p>}
                 <br />
                 {(user?.id != post[0]?.user_id) && ((loves.includes(post[0]?.posts_id)) ? <button onClick={() => handleRemoveLove(post[0]?.posts_id)}>Unlove this</button> : <button onClick={() => handleAddLove(post[0]?.posts_id)}>Love this</button>)}
-                <h3>{`${post[0]?.loves} ${post[0]?.loves == 1 ? `Love` : `Loves`}`}</h3>
                 {user?.id != post[0]?.user_id && <button onClick={() => handleReportPost(post[0]?.posts_id)}>Report</button>}
                 {user?.id == post[0]?.user_id && <button onClick={() => handleDeletePost(post[0]?.posts_id, 'post')}>Delete this post</button>}
 
             </div>
             <h4>{reply.length == 0 ? 'No replies yet...be the first!' : 'Replies:'}</h4>
-            {post[0]?.path && <button onClick={() => handleReply(post[0]?.posts_id)}>Reply</button>}
+            {post[0]?.user_id != user?.id ? (post[0]?.path ? <button onClick={() => handleReply(post[0]?.posts_id)}>Reply</button> : <button onClick={() => handleDrawingReply(post[0]?.posts_id)}>Reply</button>) : '(you can\`t reply to your own post!)'}
             <ul id='reply-list'>
                 {reply?.map((r) => (
                     <li key={r?.posts_id}>
