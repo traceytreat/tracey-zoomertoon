@@ -29,6 +29,7 @@ function NewPostPage() {
             preConfirm: (file) => {
                 let formData = new FormData();
                 formData.append("drawing", file);
+                //formData.append("text", 'test');
                 axios.post('/api/user/upload/post', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'

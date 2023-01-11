@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
+import Swal from 'sweetalert2';
+import axios from 'axios';
 import ProfilePic from '../ProfilePic/ProfilePic';
 
 import './EditUserForm.css';
@@ -30,8 +32,34 @@ function EditUserForm() {
         history.push('/user');
     };
 
-    const handleProfileUpload = () => {
-        console.log('in handleprofileupload')
+    const handleProfileUpload = async () => {
+        const { value: file } = await Swal.fire({
+            title: 'Upload a new profile pic',
+            text: 'Choose an image file.',
+            input: 'file',
+            inputAttributes: {
+                'accept': 'image/png, image/jpeg, image/jpg',
+                'aria-label': 'Upload a profile pic'
+            },
+            preConfirm: (file) => {
+                let formData = new FormData();
+                formData.append("pic", file);
+                axios.post('/api/user/upload/profilepic', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }).then((result) => {
+                    console.log('Profile pic upload success');
+                    location.reload();
+                }).catch((err) => {
+                    console.log('Profile pic upload fail', err);
+                });
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                toast.success('Successfully updated');
+            }
+        })
     }
 
     return (
