@@ -43,7 +43,6 @@ function UserDetails() {
     }
     console.log('chartData is', chartData);
 
-
     const ctx = document.getElementById('myChart');
     const myStats = new Chart(ctx, {
       type: 'bar',

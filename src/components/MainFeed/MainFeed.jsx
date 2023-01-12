@@ -71,10 +71,12 @@ function MainFeed() {
                         </Tooltip>
                     </Grid>
                 </Grid>
-                {user.admin && <button className='btn' onClick={() => history.push('/admin')}>Admin Dashboard</button>}
-                <button className='btn' onClick={() => history.push('/newpost')}>+New Post</button>
-                <button className='btn' onClick={() => history.push('/shop')}>Treasure Market</button>
-                <LogOutButton className="btn" />
+                <div id="main-feed-nav">
+                    {user.admin && <button className='btn' onClick={() => history.push('/admin')}>Admin Dashboard</button>}
+                    <button className='btn' onClick={() => history.push('/newpost')}>+New Post</button>
+                    <button className='btn' onClick={() => history.push('/shop')}>Treasure Market</button>
+                    <LogOutButton className="btn" />
+                </div>
             </section>
             <Masonry
                 breakpointCols={breakpointColumnsObj}
@@ -89,7 +91,7 @@ function MainFeed() {
                                     <ProfilePic url={item.profilepic} num={item.defaultpic} size='40' cursor='default' />
                                     <div className='post-header-text'>
                                         <span className='post-header-timestamp'>{format(parseISO(item.date), 'MM/dd/yyyy hh:mm a')}</span>
-                                        <span className='post-header-details'><Link to={item.user_id == user.id ? `/user` : `/profile/${item.user_id}`}>{item.username}</Link> shared a {<br/>} {item.path ? 'drawing' : 'text'} post:</span>
+                                        <span className='post-header-details'><Link to={item.user_id == user.id ? `/user` : `/profile/${item.user_id}`}>{item.username}</Link> shared a {<br />} {item.path ? 'drawing' : 'text'} post:</span>
                                     </div>
                                 </div>
                                 <Tooltip placement="top-start" title='Click to view' followCursor>

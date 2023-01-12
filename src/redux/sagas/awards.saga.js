@@ -22,7 +22,7 @@ function* fetchUserAwards(action) {
 function* addAward(action) {
     try {
         yield axios.post('/api/awards/' + action.payload.user_id, action.payload);
-        yield put({ type: 'FETCH_USER_AWARDS', payload: action.payload.user_id });
+        //yield put({ type: 'FETCH_USER_AWARDS', payload: action.payload.user_id });
     } catch (error) {
         console.log('Awards post request failed', error);
     }

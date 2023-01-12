@@ -23,6 +23,10 @@
     overflow-x: hidden;
 }
 
+#main-feed-nav .btn {
+    width: 250px;
+}
+
 .return-to-top {
     width: 100px;
     height: 20px;

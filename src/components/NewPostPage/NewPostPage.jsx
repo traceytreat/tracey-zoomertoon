@@ -114,9 +114,10 @@ function NewPostPage() {
                     <button onClick={newText} className="btn">
                         New Text Post
                     </button>
+                    {/*
                     <button onClick={experimental}>
                         Experimental Features
-                    </button>
+    </button>*/}
                 </div>
             </div>
         </div>

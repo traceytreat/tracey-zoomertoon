@@ -4,9 +4,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import useReduxStore from '../../hooks/useReduxStore';
 import Swal from 'sweetalert2';
 import './TreasureMarket.css';
+import { useHistory } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 
 function TreasureMarket() {
     const dispatch = useDispatch();
+    const history = useHistory();
     const store = useReduxStore();
     const userAwards = useSelector((store) => store.userAwards).map(award => award.awards_id);
 
@@ -32,6 +35,8 @@ function TreasureMarket() {
         }).then((result) => {
             if (result.isConfirmed) {
               dispatch({type: 'ADD_AWARD', payload: {user_id: store.user.id, awards_id: id}});
+              toast.success('Congrats! The treasure is now yours.');
+              history.push('/user');
             }
           })
     }

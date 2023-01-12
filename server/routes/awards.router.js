@@ -24,7 +24,8 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 router.get('/:id', rejectUnauthenticated, (req, res) => {
     console.log('req params id is', req.params.id);
     const queryText =
-        `SELECT "awards_id" FROM "users_awards"
+        `SELECT * FROM "users_awards"
+        JOIN "awards" on "users_awards"."awards_id" = "awards"."id"
         WHERE "user_id" = $1;`
 
     pool.query(queryText, [req.params.id]).then((results) => {

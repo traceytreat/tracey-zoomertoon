@@ -11,6 +11,7 @@ import EditProfileButton from '../EditProfileButton/EditProfileButton';
 import Chart from 'chart.js/auto';
 import 'chartjs-adapter-date-fns';
 import { format, parseISO } from 'date-fns';
+import Swal from 'sweetalert2';
 
 
 function UserPage() {
@@ -75,6 +76,16 @@ function UserPage() {
     }
   }, []);
 
+  const handleAwardClick = (awardName, description, path) => {
+    Swal.fire({
+      imageUrl: path,
+      showConfirmButton: false,
+      //showCancelButton: false,
+      title: awardName,
+      html: `<i>${description}</i>`
+    })
+  }
+
   return (
     <div className="content">
       <BackButton />
@@ -103,6 +114,16 @@ function UserPage() {
           <h3>Recent Activity</h3>
           <RecentPosts post={store.post} />
 
+        </section>
+        <h3>My Treasures</h3>
+        <section className='user-treasures'>
+          {store.userAwards.map(award => {
+            return (
+              <div className='award' key={award.id}>
+                <img onClick={() => handleAwardClick(award.name, award.description, award.path)} src={award.path} />
+              </div>
+            )
+          })}
         </section>
       </div>
     </div>

@@ -24,6 +24,12 @@
     height: 200px;
 }
 
+.user-treasures {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
 #admin-badge {
     background: rgb(249, 182, 41);
     background: linear-gradient(148deg, rgba(249, 182, 41, 1) 0%, rgba(255, 255, 255, 1) 15%, rgba(249, 182, 41, 1) 50%, rgba(255, 255, 255, 1) 70%, rgba(249, 182, 41, 1) 100%);
