@@ -1,0 +1,19 @@
+#treasure-market h2, #treasure-market p {
+    text-align: center;
+}
+
+#market-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-left: 300px;
+    margin-right: 300px;
+}
+.award {
+    transform: scale(0.7);
+    transition: all 0.2s;
+}
+
+.award:hover {
+    transform: scale(1);
+}

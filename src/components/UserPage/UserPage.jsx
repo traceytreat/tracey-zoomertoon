@@ -25,6 +25,7 @@ function UserPage() {
 
     dispatch({ type: 'FETCH_USER_POSTS', payload: { user_id: user.id } });
     dispatch({ type: 'FETCH_STATS', payload: { user_id: user.id } });
+    dispatch({ type: 'FETCH_USER_AWARDS', payload: { user_id: user.id } });
     console.log('stats store is', store.stats);
 
     //const dateForChart = new Date();

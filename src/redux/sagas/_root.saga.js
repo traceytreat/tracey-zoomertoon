@@ -8,6 +8,7 @@ import pointsSaga from './points.saga';
 import userDetailsSaga from './userdetails.saga';
 import lovesSaga from './loves.saga';
 import statsSaga from './stats.saga';
+import awardsSaga from './awards.saga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -27,5 +28,6 @@ export default function* rootSaga() {
     userDetailsSaga(),
     lovesSaga(),
     statsSaga(),
+    awardsSaga(),
   ]);
 }
