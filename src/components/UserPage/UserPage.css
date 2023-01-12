@@ -20,6 +20,10 @@
 }
 */
 
+#myChart-container {
+    height: 200px;
+}
+
 #admin-badge {
     background: rgb(249, 182, 41);
     background: linear-gradient(148deg, rgba(249, 182, 41, 1) 0%, rgba(255, 255, 255, 1) 15%, rgba(249, 182, 41, 1) 50%, rgba(255, 255, 255, 1) 70%, rgba(249, 182, 41, 1) 100%);
@@ -32,6 +36,7 @@
     border: 2px solid black;
     border-radius: 20px;
     user-select: none;
+    font-family: Tahoma;
 }
 
 #edit-button {

@@ -81,24 +81,26 @@ Grid
 
 
 @font-face {
-  font-family: Kavivanar;
-  src: url(../../fonts/Kavivanar-Regular.ttf);
+  font-family: 'Tracey Reborn';
+  src: url(../../fonts/Traceyreborn-Regular.ttf);
 }
 
 .big-text {
-  font-family: Kavivanar, Arial, Helvetica, sans-serif;
-  font-size: 90px;
-  transform: skew(14deg, 8deg);
+  font-family: 'Tracey Reborn', Arial, Helvetica, sans-serif;
+  font-size: 100px;
+  /*transform: skew(14deg, 8deg);*/
   position: absolute;
-  left: 60px;
-  top: 50px;
+  left: 30px;
+  top: 80px;
 }
 
 .small-text {
-  font-family: Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Tracey Reborn', Arial, Helvetica, sans-serif;
+  /*font-family: Tahoma, Geneva, Verdana, sans-serif;*/
   position: absolute;
-  left: 100px;
-  bottom: 93px;
+  font-size: 35px;
+  right: 80px;
+  bottom: 393px;
 }
 
 .landing-page {

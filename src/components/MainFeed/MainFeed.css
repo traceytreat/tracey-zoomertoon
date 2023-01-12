@@ -66,10 +66,17 @@
     margin-left: 10px;
 }
 
+.post-header-text a {
+    color: rgb(41, 146, 62);
+    text-decoration: none;
+    font-weight: bold;
+}
+
 
 .post-header-timestamp {
     align-self: flex-end;
     margin: 0;
+    background-color: #e3e3e3;
 }
 
 .post-header-details {

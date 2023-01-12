@@ -28,6 +28,7 @@ import AdminPage from '../AdminPage/AdminPage';
 import PostDetails from '../PostDetails/PostDetails';
 import UserDetails from '../UserDetails/UserDetails';
 import Guidelines from '../Guidelines/Guidelines';
+import TreasureMarket from '../TreasureMarket/TreasureMarket';
 
 function App() {
   const dispatch = useDispatch();
@@ -80,6 +81,14 @@ function App() {
             path="/feed"
           >
             <MainFeed />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // Shop for awards
+            exact
+            path="/shop"
+          >
+            <TreasureMarket />
           </ProtectedRoute>
 
           <ProtectedRoute

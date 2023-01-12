@@ -66,13 +66,14 @@ function MainFeed() {
                         <span id="points">Points: {Number(store.points[0]?.count) + Number(userAll?.filter(p => lovesAll?.includes(p)).length)}</span>
                     </Grid>
                     <Grid item>
-                        <Tooltip placement="right" title={<span style={{ whiteSpace: 'pre-line' }}>{`Number of posts created: ${store.points[0]?.count} \nNumber of likes received: ${userAll?.filter(p => lovesAll?.includes(p)).length}`}</span>} arrow>
+                        <Tooltip placement="right" title={<span style={{ whiteSpace: 'pre-line' }}>{`Number of posts created: ${store.points[0]?.count} \nNumber of loves received: ${userAll?.filter(p => lovesAll?.includes(p)).length}`}</span>} arrow>
                             <HelpIcon fontSize="small" color='black' />
                         </Tooltip>
                     </Grid>
                 </Grid>
                 {user.admin && <button className='btn' onClick={() => history.push('/admin')}>Admin Dashboard</button>}
                 <button className='btn' onClick={() => history.push('/newpost')}>+New Post</button>
+                <button className='btn' onClick={() => history.push('/shop')}>Treasure Market</button>
                 <LogOutButton className="btn" />
             </section>
             <Masonry
@@ -85,7 +86,7 @@ function MainFeed() {
                         <Card className="main-feed-post" sx={{ width: 275 }} key={index}>
                             <CardContent>
                                 <div className='post-header'>
-                                    <ProfilePic url={item.profilepic} num={item.defaultpic} size='40' cursor='pointer' />
+                                    <ProfilePic url={item.profilepic} num={item.defaultpic} size='40' cursor='default' />
                                     <div className='post-header-text'>
                                         <span className='post-header-timestamp'>{format(parseISO(item.date), 'MM/dd/yyyy hh:mm a')}</span>
                                         <span className='post-header-details'><Link to={item.user_id == user.id ? `/user` : `/profile/${item.user_id}`}>{item.username}</Link> shared a {<br/>} {item.path ? 'drawing' : 'text'} post:</span>

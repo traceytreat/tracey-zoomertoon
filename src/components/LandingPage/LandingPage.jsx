@@ -19,8 +19,8 @@ function LandingPage() {
       <div className="landing-page-container">
         <h2 className="big-text">PRACTICE <br />
           <span style={{ marginLeft: 65 + 'px' }}>& GROW</span> <br />
-          <span style={{ marginLeft: 120 + 'px' }}>(& GO!)</span></h2>
-        <h3 className="small-text">Create and participate in bite-size challenges <br />to hone your drawing and writing skills.</h3>
+          <span style={{ marginLeft: 120 + 'px' }}><i>(& GO!)</i></span></h2>
+        <h3 className="small-text">Create and participate in<br /> <i>bite-size</i> challenges <br />to hone your drawing and writing skills.</h3>
         <div className='drawing-person'>
           <svg
             xmlns="http://www.w3.org/2000/svg"

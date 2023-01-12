@@ -8,6 +8,7 @@ import userDetails from './userdetails.reducer';
 import loves from './loves.reducer';
 import lovesAll from './lovesall.reducer';
 import userAll from './userall.reducer';
+import stats from './stats.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   loves,
   lovesAll,
   userAll,
+  stats,
 });
 
 export default rootReducer;

@@ -32,6 +32,10 @@
     border: 2px solid black;
     border-radius: 20px;
     user-select: none;
+    font-family: Tahoma;
+}
+#myChart-container {
+    height: 200px;
 }
 
 #edit-button {
