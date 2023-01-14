@@ -7,7 +7,10 @@ import { format, parseISO } from 'date-fns';
 import Masonry from 'react-masonry-css'
 import ProfilePic from '../ProfilePic/ProfilePic';
 import HelpIcon from '@mui/icons-material/Help';
+import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
+import LocalMallIcon from '@mui/icons-material/LocalMall';
 import { Grid, Tooltip, Card, CardContent } from '@mui/material';
+import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 //import Drawer from '@mui/material/Drawer';
 import './MainFeed.css';
 
@@ -60,7 +63,7 @@ function MainFeed() {
                 <Tooltip placement="right" title="View Profile" followCursor>
                     <Link to='/user'><ProfilePic url={user.profilepic} num={user.defaultpic} size='175' cursor='pointer' /></Link>
                 </Tooltip>
-                <h2>{user.username}</h2>
+                <h2 className='main-feed-username'>{user.username}</h2>
                 <Grid container spacing={0.5} direction="row" alignItems="center" justifyContent="center">
                     <Grid item>
                         <span id="points">Points: {Number(store.points[0]?.count) + Number(userAll?.filter(p => lovesAll?.includes(p)).length)}</span>
@@ -73,8 +76,8 @@ function MainFeed() {
                 </Grid>
                 <div id="main-feed-nav">
                     {user.admin && <button className='btn' onClick={() => history.push('/admin')}>Admin Dashboard</button>}
-                    <button className='btn' onClick={() => history.push('/newpost')}>+New Post</button>
-                    <button className='btn' onClick={() => history.push('/shop')}>Treasure Market</button>
+                    <button className='btn' onClick={() => history.push('/newpost')}><LibraryAddIcon />New Post</button>
+                    <button className='btn' onClick={() => history.push('/shop')}><LocalMallIcon />Treasure Market</button>
                     <LogOutButton className="btn" />
                 </div>
             </section>
@@ -88,10 +91,10 @@ function MainFeed() {
                         <Card className="main-feed-post" sx={{ width: 275 }} key={index}>
                             <CardContent>
                                 <div className='post-header'>
-                                    <ProfilePic url={item.profilepic} num={item.defaultpic} size='40' cursor='default' />
+                                <Link to={item.user_id == user.id ? `/user` : `/profile/${item.user_id}`}><ProfilePic url={item.profilepic} num={item.defaultpic} size='40' cursor='pointer' /></Link>
                                     <div className='post-header-text'>
                                         <span className='post-header-timestamp'>{format(parseISO(item.date), 'MM/dd/yyyy hh:mm a')}</span>
-                                        <span className='post-header-details'><Link to={item.user_id == user.id ? `/user` : `/profile/${item.user_id}`}>{item.username}</Link> shared a {<br />} {item.path ? 'drawing' : 'text'} post:</span>
+                                        <span className='post-header-details'><span className='post-header-username'><Link to={item.user_id == user.id ? `/user` : `/profile/${item.user_id}`}>{item.username}</Link>{item.admin && <Tooltip placement='top' title='Admin'><VerifiedUserIcon className="material-icons" style={{fontSize: '14px', color: '#9D6C3C'}}/></Tooltip>}</span> shared a {item.path ? 'drawing' : 'text'} post:</span>
                                     </div>
                                 </div>
                                 <Tooltip placement="top-start" title='Click to view' followCursor>

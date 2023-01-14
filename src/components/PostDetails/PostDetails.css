@@ -5,6 +5,15 @@
     align-items: center;
 }
 
+.post-details-post {
+    display: flex;
+    flex-direction: row;
+}
+
 #reply-list {
     align-items: flex-start;
+}
+
+#reply-list {
+    list-style: none;
 }

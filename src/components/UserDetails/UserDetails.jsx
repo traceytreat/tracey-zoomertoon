@@ -27,12 +27,13 @@ function UserDetails() {
 
     //const dateForChart = new Date();
     const last7Days = [];
+    let myStats;
     for (let i = -6; i < 1; i++) {
       last7Days.push(format(((d => new Date(d.setDate(d.getDate() + i)))(new Date)), 'MM/dd/yyyy'));
     }
     //console.log(dateForChart);
     console.log(last7Days);
-
+    console.log('store.stats is', store.stats);
     const chartData = [];
     for (let i = 0; i < 7; i++) {
       for (let j = 0; j < store.stats?.length; j++) {
@@ -44,12 +45,12 @@ function UserDetails() {
     console.log('chartData is', chartData);
 
     const ctx = document.getElementById('myChart');
-    const myStats = new Chart(ctx, {
+    myStats = new Chart(ctx, {
       type: 'bar',
       data: {
         labels: last7Days,
         datasets: [{
-          label: '# of posts',
+          label: `# of posts by ${userDetails[0]?.username}`,
           data: chartData,
           borderWidth: 1
         }]

@@ -23,6 +23,12 @@ function UserPage() {
 
 
   useEffect(() => {
+    const chartData = [];
+    const last7Days = [];
+    for (let i = -6; i < 1; i++) {
+      last7Days.push(format(((d => new Date(d.setDate(d.getDate() + i)))(new Date)), 'MM/dd/yyyy'));
+    }
+
 
     dispatch({ type: 'FETCH_USER_POSTS', payload: { user_id: user.id } });
     dispatch({ type: 'FETCH_STATS', payload: { user_id: user.id } });
@@ -30,14 +36,9 @@ function UserPage() {
     console.log('stats store is', store.stats);
 
     //const dateForChart = new Date();
-    const last7Days = [];
-    for (let i = -6; i < 1; i++) {
-      last7Days.push(format(((d => new Date(d.setDate(d.getDate() + i)))(new Date)), 'MM/dd/yyyy'));
-    }
     //console.log(dateForChart);
-    console.log(last7Days);
+    //console.log(last7Days);
 
-    const chartData = [];
     for (let i = 0; i < 7; i++) {
       for (let j = 0; j < store.stats?.length; j++) {
         if (format(parseISO(store.stats[j]?.date), 'MM/dd/yyyy') == last7Days[i]) {
@@ -46,15 +47,13 @@ function UserPage() {
       }
     }
     console.log('chartData is', chartData);
-
-
     const ctx = document.getElementById('myChart');
-    const myStats = new Chart(ctx, {
+    let myStats = new Chart(ctx, {
       type: 'bar',
       data: {
         labels: last7Days,
         datasets: [{
-          label: '# of posts',
+          label: `# of posts by ${user.username}`,
           data: chartData,
           borderWidth: 1
         }]

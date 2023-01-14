@@ -43,10 +43,38 @@ function* resetProfilePic(){
   }
 }
 
+function* uploadProfilePic(action){
+  try{
+    yield axios.post('/api/user/upload/profilepic', action.payload, {
+      headers: {
+          'Content-Type': 'multipart/form-data'
+      }
+  });
+  yield put({ type: 'FETCH_USER'});
+  } catch (error) {
+    console.log('User profile pic upload (post) failed', error);
+  }
+}
+
+function* uploadDrawingPost(action){
+  try{
+    yield axios.post('/api/user/upload/post', action.payload, {
+      headers: {
+          'Content-Type': 'multipart/form-data'
+      }
+  });
+  yield put({ type: 'FETCH_POSTS'});
+  } catch (error) {
+    console.log('User profile pic upload (post) failed', error);
+  }
+}
+
 function* userSaga() {
   yield takeLatest('FETCH_USER', fetchUser);
   yield takeLatest('SAVE_CHANGES', editUser);
   yield takeLatest('RESET_PROFILE_PIC', resetProfilePic);
+  yield takeLatest('UPLOAD_PROFILE_PIC', uploadProfilePic);
+  yield takeLatest('UPLOAD_DRAWING_POST', uploadDrawingPost);
 }
 
 export default userSaga;

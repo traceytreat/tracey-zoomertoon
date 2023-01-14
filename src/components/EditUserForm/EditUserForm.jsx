@@ -44,16 +44,19 @@ function EditUserForm() {
             preConfirm: (file) => {
                 let formData = new FormData();
                 formData.append("pic", file);
+                dispatch({type: 'UPLOAD_PROFILE_PIC', payload: formData});
+                /*
                 axios.post('/api/user/upload/profilepic', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
                 }).then((result) => {
                     console.log('Profile pic upload success');
-                    location.reload();
+                    //location.reload();
                 }).catch((err) => {
                     console.log('Profile pic upload fail', err);
                 });
+                */
             }
         }).then((result) => {
             if (result.isConfirmed) {

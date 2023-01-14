@@ -30,6 +30,8 @@ function NewPostPage() {
                 let formData = new FormData();
                 formData.append("drawing", file);
                 //formData.append("text", 'test');
+                dispatch({type: 'UPLOAD_DRAWING_POST', payload: formData})
+                /*
                 axios.post('/api/user/upload/post', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
@@ -40,6 +42,7 @@ function NewPostPage() {
                 }).catch((err) => {
                     console.log('Post upload fail', err);
                 });
+                */
             }
         }).then((result) => {
             if (result.isConfirmed) {

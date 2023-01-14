@@ -38,8 +38,16 @@ function AboutPage() {
           <li>Shawl</li>
           <li>Prime staff and instructors</li>
         </ul>
+        <h2>What's next?</h2>
+        <ul>
+          <li>Complete styling overhaul</li>
+          <li>Experimental features page(upload text from file, etc.)</li>
+          <li>More treasures to collect!</li>
+        </ul>
         <h2>Let's connect</h2>
         <ul>
+          <li>My name: Tracey Treat</li>
+          <li>Cohort: Shawl</li>
           <li>LinkedIn: https://www.linkedin.com/in/traceystreat/</li>
         </ul>
       </div>

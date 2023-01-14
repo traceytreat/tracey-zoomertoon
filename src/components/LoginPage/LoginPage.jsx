@@ -6,19 +6,18 @@ function LoginPage() {
   const history = useHistory();
 
   return (
-    <div>
+    <div className='login-container'>
       <LoginForm />
-
-      <center>
-        <button
+      <button
           type="button"
           className="btn btn_asLink"
           onClick={() => {
             history.push('/registration');
           }}
         >
-          Register
+          New to Zoomertoon? Click here to register!
         </button>
+      <center>
       </center>
     </div>
   );

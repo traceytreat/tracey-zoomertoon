@@ -56,10 +56,24 @@
     padding-bottom: 10px;
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: flex-end;
     justify-content: flex-start;
     border-bottom: 1px solid darkgray;
 }
+
+/*
+@font-face {
+    font-family: 'Tracey Reborn';
+    src: url(../../fonts/Traceyreborn-Regular.ttf);
+  }
+  */
+
+/*
+.main-feed-username {
+    font-family: 'Tracey Reborn', Verdana, Tahoma;
+    font-size: 28px;
+}
+*/
 
 .post-header-text {
     display: flex;
@@ -68,6 +82,13 @@
     align-self: flex-start;
     width: 200px;
     margin-left: 10px;
+}
+
+.post-header-username{
+    background-color: rgb(231, 255, 231);
+    border-radius: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 .post-header-text a {
@@ -79,8 +100,8 @@
 
 .post-header-timestamp {
     align-self: flex-end;
-    margin: 0;
-    background-color: #e3e3e3;
+    margin-bottom: 5px;
+    /*background-color: #e3e3e3;*/
 }
 
 .post-header-details {
