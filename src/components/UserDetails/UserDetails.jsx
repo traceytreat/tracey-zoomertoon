@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import './UserDetails.css';
 import { useParams } from 'react-router-dom';
@@ -18,16 +18,14 @@ function UserDetails() {
   const post = useSelector((store) => store.post);
   const store = useReduxStore();
   const dispatch = useDispatch();
+  const [statsTable, setStatsTable] = useState('stats-hidden');
+  const [statsButton, setStatsButton] = useState('stats-visible');
+  let myStats;
 
-  useEffect(() => {
-    dispatch({ type: 'FETCH_USER_DETAILS', payload: { user_id: id } });
-    dispatch({ type: 'FETCH_USER_POSTS', payload: { user_id: id } });
-    dispatch({ type: 'FETCH_STATS', payload: { user_id: id } });
-    console.log('stats store is', store.stats);
-
+  const handleShowStats = () => {
     //const dateForChart = new Date();
     const last7Days = [];
-    let myStats;
+    //let myStats;
     for (let i = -6; i < 1; i++) {
       last7Days.push(format(((d => new Date(d.setDate(d.getDate() + i)))(new Date)), 'MM/dd/yyyy'));
     }
@@ -52,7 +50,7 @@ function UserDetails() {
         datasets: [{
           label: `# of posts by ${userDetails[0]?.username}`,
           data: chartData,
-          borderWidth: 1
+          borderWidth: 1,
         }]
       },
       options: {
@@ -67,6 +65,17 @@ function UserDetails() {
         }
       }
     });
+    setStatsTable('stats-visible');
+    setStatsButton('stats-hidden');
+  }
+
+  useEffect(() => {
+    dispatch({ type: 'FETCH_USER_DETAILS', payload: { user_id: id } });
+    dispatch({ type: 'FETCH_USER_POSTS', payload: { user_id: id } });
+    dispatch({ type: 'FETCH_USER_AWARDS', payload: {user_id: store.user.id} });
+    dispatch({ type: 'FETCH_STATS', payload: { user_id: id } });
+    console.log('stats store is', store.stats);
+
     return () => {
       myStats.destroy()
     }
@@ -93,7 +102,8 @@ function UserDetails() {
         <h2>{userDetails[0]?.username}</h2>
         <section className='post-statistics'>
           <h3>Post statistics</h3>
-          <div id="myChart-container">
+          <button className={statsButton} onClick={handleShowStats}>Click to Show Stats</button>
+          <div className={statsTable} id="myChart-container">
             <canvas id="myChart"></canvas>
           </div>
         </section>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import useReduxStore from '../../hooks/useReduxStore';
 import './UserPage.css';
@@ -18,27 +18,23 @@ function UserPage() {
   const user = useSelector((store) => store.user);
   const store = useReduxStore();
   const dispatch = useDispatch();
+  const [statsTable, setStatsTable] = useState('stats-hidden');
+  const [statsButton, setStatsButton] = useState('stats-visible');
+  let myStats;
 
 
 
-
-  useEffect(() => {
-    const chartData = [];
+  const handleShowStats = () => {
+    //const dateForChart = new Date();
     const last7Days = [];
+    //let myStats;
     for (let i = -6; i < 1; i++) {
       last7Days.push(format(((d => new Date(d.setDate(d.getDate() + i)))(new Date)), 'MM/dd/yyyy'));
     }
-
-
-    dispatch({ type: 'FETCH_USER_POSTS', payload: { user_id: user.id } });
-    dispatch({ type: 'FETCH_STATS', payload: { user_id: user.id } });
-    dispatch({ type: 'FETCH_USER_AWARDS', payload: { user_id: user.id } });
-    console.log('stats store is', store.stats);
-
-    //const dateForChart = new Date();
     //console.log(dateForChart);
-    //console.log(last7Days);
-
+    console.log(last7Days);
+    console.log('store.stats is', store.stats);
+    const chartData = [];
     for (let i = 0; i < 7; i++) {
       for (let j = 0; j < store.stats?.length; j++) {
         if (format(parseISO(store.stats[j]?.date), 'MM/dd/yyyy') == last7Days[i]) {
@@ -47,13 +43,14 @@ function UserPage() {
       }
     }
     console.log('chartData is', chartData);
+
     const ctx = document.getElementById('myChart');
-    let myStats = new Chart(ctx, {
+    myStats = new Chart(ctx, {
       type: 'bar',
       data: {
         labels: last7Days,
         datasets: [{
-          label: `# of posts by ${user.username}`,
+          label: `# of posts by ${user?.username}`,
           data: chartData,
           borderWidth: 1
         }]
@@ -70,6 +67,17 @@ function UserPage() {
         }
       }
     });
+    setStatsTable('stats-visible');
+    setStatsButton('stats-hidden');
+  }
+
+  useEffect(() => {
+    dispatch({ type: 'FETCH_USER_DETAILS', payload: { user_id: user.id } });
+    dispatch({ type: 'FETCH_USER_POSTS', payload: { user_id: user.id } });
+    dispatch({ type: 'FETCH_USER_AWARDS', payload: {user_id: store.user.id} });
+    dispatch({ type: 'FETCH_STATS', payload: { user_id: user.id } });
+    console.log('stats store is', store.stats);
+
     return () => {
       myStats.destroy()
     }
@@ -105,7 +113,8 @@ function UserPage() {
         <h2>{user.username}</h2>
         <section className='post-statistics'>
           <h3>Post statistics</h3>
-          <div id="myChart-container">
+          <button className={statsButton} onClick={handleShowStats}>Click to Show Stats</button>
+          <div className={statsTable} id="myChart-container">
             <canvas id="myChart"></canvas>
           </div>
         </section>
@@ -114,7 +123,7 @@ function UserPage() {
           <RecentPosts post={store.post} />
 
         </section>
-        <h3>My Treasures</h3>
+        <h3>My Inventory</h3>
         <section className='user-treasures'>
           {store.userAwards.map(award => {
             return (

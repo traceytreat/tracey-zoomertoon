@@ -36,7 +36,7 @@ function TreasureMarket() {
             if (result.isConfirmed) {
               dispatch({type: 'ADD_AWARD', payload: {user_id: store.user.id, awards_id: id}});
               toast.success('Congrats! The treasure is now yours.');
-              history.push('/user');
+              history.push('/feed');
             }
           })
     }

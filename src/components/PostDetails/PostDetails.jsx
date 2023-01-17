@@ -10,6 +10,7 @@ import BackButton from '../BackButton/BackButton';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FlagIcon from '@mui/icons-material/Flag';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function PostDetails() {
     const { id } = useParams();
@@ -85,10 +86,14 @@ function PostDetails() {
                 dispatch({ type: 'FETCH_REPLIES', payload: { posts_id: id } });
                 dispatch({ type: 'FETCH_POST_DETAILS', payload: { posts_id: id } });
                 toast.success("Deleted post"); //set timer for this
+                /*
                 if (postType == 'post') {
                     dispatch({ type: 'FETCH_POSTS', payload: { posts_id: id } });
                     history.push('/feed');
                 }
+                */
+                dispatch({ type: 'FETCH_POSTS', payload: { posts_id: id } });
+                history.push('/feed');
             }
         })
     }
@@ -141,35 +146,37 @@ function PostDetails() {
 
     console.log(user);
     return (
-        <>
+        <div className="post-details-bg">
             <BackButton />
             <div className="post-details-content">
-                <h3 className='post-details-header'><Link to={post[0]?.user_id == user.id ? `/user` : `/profile/${post[0]?.user_id}`}>{post[0]?.username}</Link> posted a {post[0]?.path ? 'drawing' : 'text'} on {post[0] ? format(parseISO(post[0]?.date), 'MM/dd/yyyy') : ''} at {post[0] ? format(parseISO(post[0]?.date), 'hh:mm a') : ''}</h3>
                 <div className='post-details-post'>
-                    <div>
+                    <h3 className='post-details-header'><Link to={post[0]?.user_id == user.id ? `/user` : `/profile/${post[0]?.user_id}`}>{post[0]?.username}</Link> posted a {post[0]?.path ? 'drawing' : 'text'} on {post[0] ? format(parseISO(post[0]?.date), 'MM/dd/yyyy') : ''} at {post[0] ? format(parseISO(post[0]?.date), 'hh:mm a') : ''}</h3>
+                    <div className="post-details-image">
                         {post[0]?.path ? <img width='350' src={post[0]?.path} /> : <p>{post[0]?.text}</p>}
                     </div>
-                    <div>
-                        {(user?.id != post[0]?.user_id) && ((loves.includes(post[0]?.posts_id)) ? <FavoriteIcon onClick={() => handleRemoveLove(post[0]?.posts_id)} /> : <FavoriteBorderIcon onClick={() => handleAddLove(post[0]?.posts_id)} />)}
-                        {user?.id != post[0]?.user_id && <FlagIcon onClick={() => handleReportPost(post[0]?.posts_id)}/>}
-                        {user?.id == post[0]?.user_id && <button onClick={() => handleDeletePost(post[0]?.posts_id, 'post')}>Delete this post</button>}
+                    <div className='post-details-icons'>
+                        {(user?.id != post[0]?.user_id) && ((loves.includes(post[0]?.posts_id)) ? <FavoriteIcon sx={{ color: 'red' }} onClick={() => handleRemoveLove(post[0]?.posts_id)} /> : <FavoriteBorderIcon onClick={() => handleAddLove(post[0]?.posts_id)} />)}
+                        {user?.id != post[0]?.user_id && <FlagIcon onClick={() => handleReportPost(post[0]?.posts_id)} />}
+                        {user?.id == post[0]?.user_id && <DeleteIcon onClick={() => handleDeletePost(post[0]?.posts_id, 'post')} />}
                     </div>
                 </div>
             </div>
+            <div className='post-details-replies'>
             <h4>{reply.length == 0 ? 'No replies yet...be the first!' : 'Replies:'}</h4>
-            {post[0]?.user_id != user?.id ? (post[0]?.path ? <button onClick={() => handleReply(post[0]?.posts_id)}>Reply</button> : <button onClick={() => handleDrawingReply(post[0]?.posts_id)}>Reply</button>) : '(you can\`t reply to your own post!)'}
+            {post[0]?.user_id != user?.id ? (post[0]?.path ? <button className='btn' onClick={() => handleReply(post[0]?.posts_id)}>Reply</button> : <button className='btn' onClick={() => handleDrawingReply(post[0]?.posts_id)}>Reply</button>) : '(you can\`t reply to your own post!)'}
             <ul id='reply-list'>
                 {reply?.map((r) => (
                     <li key={r?.posts_id}>
                         <b><Link to={r?.user_id == user.id ? `/user` : `/profile/${r?.user_id}`}>{r?.username}</Link>: {r?.text ? r?.text : <img width='250' src={r?.path} />}</b>
-                        {(user?.id != r?.user_id) && ((loves.includes(r?.posts_id)) ? <button onClick={() => handleRemoveLove(r?.posts_id)}><FavoriteIcon /></button> : <button onClick={() => handleAddLove(r?.posts_id)}><FavoriteBorderIcon /></button>)}
-                        {user?.id != r?.user_id && <FlagIcon onClick={() => handleReportPost(r?.posts_id)}/>}
-                        {user?.id == r?.user_id && <button onClick={() => handleDeletePost(r?.posts_id, 'reply')}>Delete this post</button>}
+                        {(user?.id != r?.user_id) && ((loves.includes(r?.posts_id)) ? <FavoriteIcon sx={{ color: 'red' }} onClick={() => handleRemoveLove(r?.posts_id)} /> : <FavoriteBorderIcon onClick={() => handleAddLove(r?.posts_id)} />)}
+                        {user?.id != r?.user_id && <FlagIcon onClick={() => handleReportPost(r?.posts_id)} />}
+                        {user?.id == r?.user_id && <DeleteIcon onClick={() => handleDeletePost(r?.posts_id, 'reply')} />}
                     </li>
                 ))}
             </ul>
             {/*<p>{JSON.stringify(reply)}</p>*/}
-        </>
+            </div>
+        </div>
     );
 
 }

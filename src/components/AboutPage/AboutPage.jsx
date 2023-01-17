@@ -22,6 +22,7 @@ function AboutPage() {
           <li>Sweetalert2</li>
           <li>react-toastify</li>
           <li>chart.js</li>
+          <li>date-fns</li>
           <li>multer</li>
           <li>Material UI</li>
           <li>tinycolor2</li>
@@ -40,7 +41,8 @@ function AboutPage() {
         </ul>
         <h2>What's next?</h2>
         <ul>
-          <li>Complete styling overhaul</li>
+          <li>More styling</li>
+          <li>Streaks feature (like duolingo)</li>
           <li>Experimental features page(upload text from file, etc.)</li>
           <li>More treasures to collect!</li>
         </ul>
@@ -48,7 +50,10 @@ function AboutPage() {
         <ul>
           <li>My name: Tracey Treat</li>
           <li>Cohort: Shawl</li>
+          <li>Let's be (virtual) pen pals! treatracey@gmail.com</li>
           <li>LinkedIn: https://www.linkedin.com/in/traceystreat/</li>
+          <li>IF YOU PLAY POKÉMON (or even if you don't) LET'S TALK!</li>
+          <li>Ask me for my Pokémon GO friend codes!</li>
         </ul>
       </div>
     </div>
