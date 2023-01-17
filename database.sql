@@ -4,10 +4,10 @@ CREATE TABLE "user" (
 	"password" varchar(255) NOT NULL,
 	"website" varchar(255),
 	"linkedin" varchar(255),
-	"profilepic" varchar(255) DEFAULT './images/profilepics/default.svg', 
-	"defaultpic" int,
 	"email" varchar(255),
-	"admin" BOOLEAN NOT NULL DEFAULT 'false'
+	"admin" BOOLEAN NOT NULL DEFAULT 'false',
+	"profilepic" varchar(255) DEFAULT './images/profilepics/default.svg', 
+	"defaultpic" int
 );
 
 
@@ -27,8 +27,8 @@ CREATE TABLE "users_posts" (
 	"id" serial primary key,
 	"user_id" int NOT NULL references "user",
 	"posts_id" int NOT NULL references "posts",
-	"reply_to" int references "posts",
-	"action_type" varchar(255) NOT NULL
+	"action_type" varchar(255) NOT NULL,
+	"reply_to" int references "posts"
 );
 
 
