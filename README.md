@@ -11,3 +11,4 @@ Using the `database.sql` file, create the database in Postico. Make sure to star
 Then, in the terminal, type `npm run server`. In a separate terminal tab, type `npm run client`.
 Zoomertoon will open in your browser.
 
+Currently working on: Adding AWS support for image upload
